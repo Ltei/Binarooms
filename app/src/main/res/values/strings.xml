@@ -1,0 +1,25 @@
+<resources>
+
+    <string name="app_name">10rooms</string>
+
+    <string name="title_main">@string/app_name</string>
+    <string name="title_hello_world">Hello world</string>
+    <string name="title_edit_room">Room editor</string>
+
+    <string name="str_default">default</string>
+    <string name="str_bigdefault">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</string>
+
+    <string name="hint_title">Title</string>
+    <string name="hint_description">Blablabla</string>
+
+    <string name="btn_confirm">Confirm</string>
+    <string name="btn_ok">Ok</string>
+    <string name="btn_addMedia">Add media</string>
+
+    <string name="hello_world_text">
+        Welcome to 2rooms, here you can navigate through the rooms binary tree by starting
+        at the source room, and pressing the button to either go left or right.\n
+        When you press this button, you blblblblbl
+    </string>
+
+</resources>

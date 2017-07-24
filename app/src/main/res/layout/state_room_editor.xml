@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="lteii._10rooms.ActMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+    <LinearLayout
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/main_vertical_margin"
+        android:paddingTop="@dimen/main_vertical_margin"
+        android:paddingLeft="@dimen/main_horizontal_margin"
+        android:paddingRight="@dimen/main_horizontal_margin"
+        android:id="@+id/parent_linear_layout">
+
+        <!-- UITITLE -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingBottom="8dp"
+            android:text="@string/title_edit_room"
+            android:textSize="@dimen/title_size"
+            android:textStyle="bold"
+            android:background="@android:color/transparent"
+            android:id="@+id/title_textview"/>
+
+
+        <!-- Title edit text -->
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/edit_text"
+            android:hint="@string/hint_title"
+            android:inputType="text"
+            android:id="@+id/title_edittext"/>
+
+        <!-- Title edit text -->
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:minHeight="160dp"
+            android:gravity="start"
+            android:background="@android:drawable/edit_text"
+            android:hint="@string/hint_description"
+            android:inputType="textMultiLine"
+            android:id="@+id/description_edittext"/>
+
+
+        <!-- Media holder layout -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@android:drawable/edit_text">
+
+            <!-- Add content buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@android:color/transparent"
+                android:id="@+id/add_media_buttons_linearlayout">
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:background="@color/colorButtonDark"
+                    android:text="Add\nimage"
+                    android:id="@+id/add_image_button"/>
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@color/colorButtonDark"
+                    android:text="Add\nmusic"
+                    android:id="@+id/add_music_button"/>
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:background="@color/colorButtonDark"
+                    android:text="Add\nvideo"
+                    android:id="@+id/add_video_button"/>
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/room_media_framelayout">
+
+            </FrameLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorButtonDark"
+                android:text="Delete"
+                android:id="@+id/delete_media_button"/>
+
+        </LinearLayout>
+
+
+        <!-- Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@android:drawable/edit_text"
+            android:gravity="bottom">
+
+            <!-- Background color picker -->
+            <lteii._10rooms.utils.colorPicker.ColorPicker
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@color/colorButtonDark"
+                android:text="Background color"
+                android:id="@+id/background_colorpicker"/>
+
+            <!-- Confirm button -->
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@color/colorButtonDark"
+                android:text="@string/btn_confirm"
+                android:id="@+id/confirm_button"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>
