@@ -18,8 +18,12 @@
 
     <string name="hello_world_text">
         Welcome to 2rooms, here you can navigate through the rooms binary tree by starting
-        at the source room, and pressing the button to either go left or right.\n
-        When you press this button, you blblblblbl
+        at the source room, and pressing the button to either go left or right.
+        \nWhen you press this button, you blblblblbl
+        \nWe do not collect anything from you, we only store the rooms you created (which are public)
+        \nThis network is totally anonymous, you have no profile, no nickname, no password.
+        \nOnly rooms have a password, which is automatically stored in your phone when you create a
+        room, you can use it to edit your room, and you can share it so others can edit your room too
     </string>
 
 </resources>
