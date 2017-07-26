@@ -2,32 +2,35 @@ package lteii._10rooms;
 
 import android.content.Context;
 
-import lteii._10rooms.model.room.Room;
+import java.util.ArrayList;
+
+import lteii._10rooms.model.OLDRoom;
+import lteii._10rooms.model.Room;
 import lteii._10rooms.utils.MathUtils;
 
 public class Database {
 
-    public static Room SOURCE_ROOM = null;
+    public static OLDRoom SOURCE_ROOM = null;
 
     public static void setup(Context context) {
 
-        SOURCE_ROOM = new Room("Hello", "This is the source room", null, context.getResources().getColor(R.color.colorBackground));
+        SOURCE_ROOM = new OLDRoom("Hello", "This is the source room", null, context.getResources().getColor(R.color.colorBackground));
 
-        final Room s1 = new Room("hi", "room", null, MathUtils.randomColor());
-        final Room s11 = new Room("hi", "room", null, MathUtils.randomColor());
-        final Room s12 = new Room("hi", "room", null, MathUtils.randomColor());
-        final Room s111 = new Room("hi", "room", null, MathUtils.randomColor());
-        final Room s112 = new Room("hi", "room", null, MathUtils.randomColor());
-        final Room s121 = new Room("hi", "room", null, MathUtils.randomColor());
-        final Room s122 = new Room("hi", "room", null, MathUtils.randomColor());
+        final OLDRoom s1 = new OLDRoom("hi", "room", null, MathUtils.randomColor());
+        final OLDRoom s11 = new OLDRoom("hi", "room", null, MathUtils.randomColor());
+        final OLDRoom s12 = new OLDRoom("hi", "room", null, MathUtils.randomColor());
+        final OLDRoom s111 = new OLDRoom("hi", "room", null, MathUtils.randomColor());
+        final OLDRoom s112 = new OLDRoom("hi", "room", null, MathUtils.randomColor());
+        final OLDRoom s121 = new OLDRoom("hi", "room", null, MathUtils.randomColor());
+        final OLDRoom s122 = new OLDRoom("hi", "room", null, MathUtils.randomColor());
 
-        final Room s2 = new Room("hi", "room", null, MathUtils.randomColor());
-        final Room s21 = new Room("hi", "room", null, MathUtils.randomColor());
-        final Room s22 = new Room("hi", "room", null, MathUtils.randomColor());
-        final Room s211 = new Room("hi", "room", null, MathUtils.randomColor());
-        final Room s212 = new Room("hi", "room", null, MathUtils.randomColor());
-        final Room s221 = new Room("hi", "room", null, MathUtils.randomColor());
-        final Room s222 = new Room("hi", "room", null, MathUtils.randomColor());
+        final OLDRoom s2 = new OLDRoom("hi", "room", null, MathUtils.randomColor());
+        final OLDRoom s21 = new OLDRoom("hi", "room", null, MathUtils.randomColor());
+        final OLDRoom s22 = new OLDRoom("hi", "room", null, MathUtils.randomColor());
+        final OLDRoom s211 = new OLDRoom("hi", "room", null, MathUtils.randomColor());
+        final OLDRoom s212 = new OLDRoom("hi", "room", null, MathUtils.randomColor());
+        final OLDRoom s221 = new OLDRoom("hi", "room", null, MathUtils.randomColor());
+        final OLDRoom s222 = new OLDRoom("hi", "room", null, MathUtils.randomColor());
 
         s1.setChild(0, s11);
         s1.setChild(1, s12);

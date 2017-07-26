@@ -2,41 +2,33 @@ package lteii._10rooms.state;
 
 
 import android.app.FragmentManager;
-
-import java.util.Stack;
+import android.support.annotation.Nullable;
 
 import lteii._10rooms.MenuDrawerLayout;
 import lteii._10rooms.R;
 
 
-public class StateManager {
+public class StatesManager {
 
 
     private final FragmentManager fragmentManager;
     private final MenuDrawerLayout menuDrawerLayout;
 
-    private final Stack<State> stateStack;
+    private State currentState = null;
+    private @Nullable SubState currentSubState = null;
 
-    public StateManager(FragmentManager fragmentManager, MenuDrawerLayout menuDrawerLayout, State firstState) {
+    public StatesManager(FragmentManager fragmentManager, MenuDrawerLayout menuDrawerLayout, State firstState) {
         this.fragmentManager = fragmentManager;
         this.menuDrawerLayout = menuDrawerLayout;
-        this.stateStack = new Stack<>();
         setState(firstState);
     }
 
 
     public void setState(State state) {
-        if (state instanceof StateHelloWorld) {
-            stateStack.clear();
-            menuDrawerLayout.setMenuIndex(MenuDrawerLayout.MENU_IDX_HELLO_WORLD);
-        } else if (state instanceof StateAllRooms) {
-            stateStack.clear();
+        if (state instanceof StateAllRooms) {
             menuDrawerLayout.setMenuIndex(MenuDrawerLayout.MENU_IDX_ALL_ROOMS);
         } else if (state instanceof StateRoom) {
-            stateStack.clear();
-            menuDrawerLayout.setMenuIndex(MenuDrawerLayout.MENU_IDX_ROOM);
-        } else if (state instanceof StateRoomEditor) {
-
+            menuDrawerLayout.setMenuIndex(MenuDrawerLayout.MENU_IDX_NONE);
         } else {
             throw new IllegalStateException();
         }
@@ -44,16 +36,24 @@ public class StateManager {
         fragmentManager.beginTransaction()
                 .replace(R.id.content_frame, state)
                 .commit();
-        stateStack.push(state);
+        this.currentState = state;
+        this.currentSubState = null;
+    }
+
+    public void setSubState(SubState subState) {
+        fragmentManager.beginTransaction()
+                .replace(R.id.content_frame, subState)
+                .commit();
+        this.currentSubState = subState;
     }
 
     public boolean onBackPressed() {
-        if (stateStack.size() <= 1) {
+        if (currentSubState == null) {
             return false;
         } else {
-            stateStack.pop();
+            currentSubState = null;
             fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, stateStack.firstElement())
+                    .replace(R.id.content_frame, currentState)
                     .commit();
             return true;
         }

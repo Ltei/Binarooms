@@ -8,11 +8,11 @@ import android.view.ViewGroup;
 
 import lteii._10rooms.R;
 
-public class StateHelloWorld extends State {
+public class SubStateInfos extends SubState {
 
 
 
-    public StateHelloWorld() {}
+    public SubStateInfos() {}
 
 
     @Override

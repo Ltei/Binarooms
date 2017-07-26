@@ -3,9 +3,13 @@ package lteii._10rooms;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.ImageButton;
 
-import lteii._10rooms.state.StateHelloWorld;
-import lteii._10rooms.state.StateManager;
+import lteii._10rooms.state.SubStateInfos;
+import lteii._10rooms.state.StatesManager;
+import lteii._10rooms.state.StateRoom;
 
 
 public class ActMain extends AppCompatActivity {
@@ -13,16 +17,14 @@ public class ActMain extends AppCompatActivity {
     public static final int RC_CHECK_PERMISSIONS = 0;
 
 
-    public static StateManager STATE_MANAGER = null;
+    public static StatesManager STATES_MANAGER = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_main);
 
-        if (Permissions.checkup(this)) {
-            onPermissionCheckValidated();
-        }
+        if (Permissions.checkup(this)) onPermissionCheckValidated();
     }
 
     @Override
@@ -30,29 +32,48 @@ public class ActMain extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_CHECK_PERMISSIONS) {
-            onCheckPermissionsResult(resultCode);
-        }
-    }
-    private void onCheckPermissionsResult(int resultCode) {
-        if (resultCode == RESULT_OK) {
-            onPermissionCheckValidated();
-        } else {
-            Permissions.checkup(this);
+            if (resultCode == RESULT_OK) {
+                onPermissionCheckValidated();
+            } else {
+                Permissions.checkup(this);
+            }
         }
     }
 
 
     @Override
     public void onBackPressed() {
-        if (!STATE_MANAGER.onBackPressed())
+        if (!STATES_MANAGER.onBackPressed())
             super.onBackPressed();
     }
 
     private void onPermissionCheckValidated() {
         Database.setup(getApplicationContext());
+
         final MenuDrawerLayout menuDrawerLayout = (MenuDrawerLayout)findViewById(R.id.MenuDrawerLayout);
         menuDrawerLayout.setup(this);
-        STATE_MANAGER = new StateManager(getFragmentManager(), menuDrawerLayout, new StateHelloWorld());
+
+        final ImageButton toolbarMenuButton = (ImageButton) findViewById(R.id.toolbar_menu_button);
+        toolbarMenuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (menuDrawerLayout.isDrawerOpen(Gravity.START)) {
+                    menuDrawerLayout.closeDrawer(Gravity.START);
+                } else {
+                    menuDrawerLayout.openDrawer(Gravity.START);
+                }
+            }
+        });
+
+        final ImageButton toolbarInfosButton = (ImageButton) findViewById(R.id.toolbar_infos_button);
+        toolbarInfosButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                STATES_MANAGER.setSubState(new SubStateInfos());
+            }
+        });
+
+        STATES_MANAGER = new StatesManager(getFragmentManager(), menuDrawerLayout, new StateRoom().setup(Database.SOURCE_ROOM));
     }
 
 

@@ -1,31 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<lteii._10rooms.MenuDrawerLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/MenuDrawerLayout">
+    android:orientation="vertical">
 
-    <!-- Main content view -->
-    <FrameLayout
+    <!-- Toolbar -->
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:textAlignment="center">
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="@dimen/title_size"
+            android:layout_marginLeft="@dimen/title_size"
+            android:background="@android:drawable/ic_menu_more"
+            android:id="@+id/toolbar_menu_button"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Hello world"
+            android:textSize="@dimen/title_size" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/title_size"
+            android:layout_marginRight="@dimen/title_size"
+            android:background="@android:drawable/ic_menu_info_details"
+            android:id="@+id/toolbar_infos_button"/>
+    </android.support.v7.widget.Toolbar>
+
+    <!-- DrawerLayout -->
+    <lteii._10rooms.MenuDrawerLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/content_frame">
-        <ImageView
+        android:id="@+id/MenuDrawerLayout">
+
+        <!-- Main content view -->
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/image_view"/>
-    </FrameLayout>
+            android:id="@+id/content_frame"/>
 
-    <!-- Navigation drawer -->
-    <ListView
-        android:layout_width="240dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:choiceMode="singleChoice"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp"
-        android:background="#111"
-        android:id="@+id/left_drawer"/>
+        <!-- Navigation drawer -->
+        <ListView
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:choiceMode="singleChoice"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp"
+            android:background="#111"
+            android:id="@+id/left_drawer"/>
 
-</lteii._10rooms.MenuDrawerLayout>
+    </lteii._10rooms.MenuDrawerLayout>
+
+</LinearLayout>
 

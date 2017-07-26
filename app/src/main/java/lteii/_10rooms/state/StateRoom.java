@@ -8,22 +8,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import lteii._10rooms.R;
-import lteii._10rooms.model.room.Room;
+import lteii._10rooms.model.OLDRoom;
 import lteii._10rooms.utils.MathUtils;
 
-import static lteii._10rooms.ActMain.STATE_MANAGER;
+import static lteii._10rooms.ActMain.STATES_MANAGER;
 
 
 public class StateRoom extends State {
 
-    private Room room = null;
+    private OLDRoom room = null;
 
     public StateRoom() {}
-    public StateRoom setup(Room room) {
+    public StateRoom setup(OLDRoom room) {
         if (room == null) throw new IllegalArgumentException();
         this.room = room;
         return this;
@@ -45,34 +44,44 @@ public class StateRoom extends State {
         ((TextView) rootView.findViewById(R.id.title_textview)).setText(room.getTitle());
         ((TextView) rootView.findViewById(R.id.description_textview)).setText(room.getDescription());
 
-        // Setup path Buttons
+        // Get buttons colors
+        final int buttonColor;
+        final int buttonTextColor;
+        if (MathUtils.isBrightColor(room.getBackgroundColor())) {
+            buttonColor = getResources().getColor(R.color.colorButtonDark);
+            buttonTextColor = getResources().getColor(R.color.colorButtonDarkText);
+        } else {
+            buttonColor = getResources().getColor(R.color.colorButtonLight);
+            buttonTextColor = getResources().getColor(R.color.colorButtonLightText);
+        }
+
+        // Setup separators
+        rootView.findViewById(R.id.separator0).setBackgroundColor(buttonTextColor);
+        rootView.findViewById(R.id.separator1).setBackgroundColor(buttonTextColor);
+
+        // Setup comments button
+        final Button commentsButton = rootView.findViewById(R.id.comments_button);
+        commentsButton.setBackgroundColor(buttonColor);
+        commentsButton.setTextColor(buttonTextColor);
+
+        // Setup path buttons
         final Button[] pathButtons = new Button[] {
                 rootView.findViewById(R.id.left_path_button),
                 rootView.findViewById(R.id.right_path_button)
         };
 
-        final int buttonColor;
-        final int textColor;
-        if (MathUtils.isBrightColor(room.getBackgroundColor())) {
-            buttonColor = getResources().getColor(R.color.colorButtonDark);
-            textColor = getResources().getColor(R.color.colorButtonDarkText);
-        } else {
-            buttonColor = getResources().getColor(R.color.colorButtonLight);
-            textColor = getResources().getColor(R.color.colorButtonLightText);
-        }
-
         for (int i=0; i<pathButtons.length; i++) {
             final Button button = pathButtons[i];
 
             button.setBackgroundColor(buttonColor);
-            button.setTextColor(textColor);
+            button.setTextColor(buttonTextColor);
 
             if (room.getChild(i) != null) {
-                final Room child = room.getChild(i);
+                final OLDRoom child = room.getChild(i);
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        STATE_MANAGER.setState(new StateRoom().setup(child));
+                        STATES_MANAGER.setState(new StateRoom().setup(child));
                     }
                 });
             } else {
@@ -85,7 +94,7 @@ public class StateRoom extends State {
                         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                STATE_MANAGER.setState(new StateRoomEditor().setup(room, indexInParent));
+                                STATES_MANAGER.setSubState(new SubStateRoomEditor().setup(room, indexInParent));
                                 dialog.cancel();
                             }
                         });

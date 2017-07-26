@@ -1,4 +1,4 @@
-package lteii._10rooms.model.room;
+package lteii._10rooms.model;
 
 
 import android.content.Context;

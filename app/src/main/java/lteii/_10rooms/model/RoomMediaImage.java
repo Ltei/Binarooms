@@ -1,15 +1,10 @@
-package lteii._10rooms.model.room;
+package lteii._10rooms.model;
 
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-
-import lteii._10rooms.R;
 
 public class RoomMediaImage implements RoomMedia {
 

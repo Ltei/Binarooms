@@ -5,12 +5,11 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
 import lteii._10rooms.Database;
-import lteii._10rooms.model.room.Room;
+import lteii._10rooms.model.OLDRoom;
 import lteii._10rooms.utils.MathUtils;
 import lteii._10rooms.utils.NavigableGraphView;
 
@@ -89,7 +88,7 @@ public class AllRoomsTreeView extends NavigableGraphView {
     }
 
 
-    private void extractNodes(Room room, @Nullable Node parent, int floor, float x, float y, float xSpace, float ySpace) {
+    private void extractNodes(OLDRoom room, @Nullable Node parent, int floor, float x, float y, float xSpace, float ySpace) {
         final Node dot = new Node(floor, (int)x, (int)y, room.getBackgroundColor(), parent);
         nodes.add(dot);
         if (room.getChild(0) != null) extractNodes(room.getChild(0), dot, floor+1, x+xSpace, y-ySpace, xSpace/2f, ySpace);

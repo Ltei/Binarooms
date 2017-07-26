@@ -1,37 +1,38 @@
-package lteii._10rooms.model.room;
+package lteii._10rooms.model;
 
 
 import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 
-import lteii._10rooms.model.Date;
-
-public class Room {
+@Deprecated
+public class OLDRoom {
 
     public static final int NB_CHILDS = 2;
 
 
-    private final Date postDate;
+    private final Date creationDate;
+    private Date lastEditDate;
     private final String title;
     private final String description;
     private final RoomMedia media;
     private final int backgroundColor;
     private final ArrayList<RoomComment> comments;
-    private final Room[] childs;
+    private final OLDRoom[] childs;
 
-    public Room(String title, String description, @Nullable RoomMedia media, int backgroundColor) {
-        this.postDate = Date.now();
+    public OLDRoom(String title, String description, @Nullable RoomMedia media, int backgroundColor) {
+        this.creationDate = Date.now();
+        this.lastEditDate = Date.now();
         this.title = title;
         this.description = description;
         this.media = media;
         this.backgroundColor = backgroundColor;
         this.comments = new ArrayList<>();
-        this.childs = new Room[NB_CHILDS];
+        this.childs = new OLDRoom[NB_CHILDS];
     }
 
 
-    public void setChild(int index, Room child) {
+    public void setChild(int index, OLDRoom child) {
         if (index < 0 || index >= NB_CHILDS) throw new IllegalStateException();
         if (childs[index] != null) throw new IllegalStateException();
         childs[index] = child;
@@ -49,7 +50,7 @@ public class Room {
         return comments.get(index);
     }
     public int getNbComments() { return comments.size(); }
-    public Room getChild(int index) {
+    public OLDRoom getChild(int index) {
         if (index < 0 || index >= NB_CHILDS) throw new IllegalStateException();
         return childs[index];
     }

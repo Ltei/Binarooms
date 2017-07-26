@@ -19,18 +19,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import lteii._10rooms.R;
-import lteii._10rooms.model.room.Room;
-import lteii._10rooms.model.room.RoomMedia;
-import lteii._10rooms.model.room.RoomMediaImage;
-import lteii._10rooms.model.room.RoomMediaVideo;
+import lteii._10rooms.model.OLDRoom;
+import lteii._10rooms.model.RoomMedia;
+import lteii._10rooms.model.RoomMediaImage;
+import lteii._10rooms.model.RoomMediaVideo;
 import lteii._10rooms.utils.MathUtils;
 import lteii._10rooms.utils.Utils;
 import lteii._10rooms.utils.colorPicker.ColorPicker;
 
 import static android.app.Activity.RESULT_OK;
-import static lteii._10rooms.ActMain.STATE_MANAGER;
+import static lteii._10rooms.ActMain.STATES_MANAGER;
 
-public class StateRoomEditor extends State {
+public class SubStateRoomEditor extends SubState {
 
     private static final int RC_SELECT_PHOTO = 0;
     private static final int RC_SELECT_VIDEO = 1;
@@ -38,7 +38,7 @@ public class StateRoomEditor extends State {
 
     private Context context = null;
 
-    private Room parent = null;
+    private OLDRoom parent = null;
     private Integer indexInParent = null;
 
     private FrameLayout roomMediaFrameLayout = null;
@@ -48,8 +48,8 @@ public class StateRoomEditor extends State {
     private @Nullable View roomMediaView = null;
     private @Nullable RoomMedia roomMedia = null;
 
-    public StateRoomEditor() {}
-    public StateRoomEditor setup(Room parent, int indexInParent) {
+    public SubStateRoomEditor() {}
+    public SubStateRoomEditor setup(OLDRoom parent, int indexInParent) {
         this.parent = parent;
         this.indexInParent = indexInParent;
         return this;
@@ -142,12 +142,12 @@ public class StateRoomEditor extends State {
                     return;
                 }
 
-                final Room created = new Room(title, description, null, bakcgroundColorPicker.getPickedColor());
+                final OLDRoom created = new OLDRoom(title, description, null, bakcgroundColorPicker.getPickedColor());
                 parent.setChild(indexInParent, created);
 
                 final StateRoom state = new StateRoom();
                 state.setup(created);
-                STATE_MANAGER.setState(state);
+                STATES_MANAGER.setState(state);
             }
         });
 

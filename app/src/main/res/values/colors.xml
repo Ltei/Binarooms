@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorBLACK">#000000</color>
+    <color name="colorDefault">#FF0000</color>
+
     <color name="colorRED">#FF0000</color>
     <color name="colorGREEN">#00FF00</color>
     <color name="colorBLUE">#0000FF</color>
 
+
     <color name="colorPrimary">#202020</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#888888</color>
+    <color name="colorAccentLight">#FFFFFF</color>
 
-    <color name="colorDefault">#FF0000</color>
 
-    <color name="colorBackground">#101010</color>
+    <color name="colorBackground">@color/colorPrimary</color>
 
-    <color name="colorTextLight">#FFFFFF</color>
-    <color name="colorTextDark">#000000</color>
+    <color name="colorTextLight">@color/colorAccentLight</color>
+    <color name="colorTextDark">@color/colorPrimaryDark</color>
 
     <color name="colorButtonDark">@color/colorPrimary</color>
-    <color name="colorButtonDarkText">#FFFFFF</color>
+    <color name="colorButtonDarkText">@color/colorAccentLight</color>
 
-    <color name="colorButtonLight">#FFFFFF</color>
-    <color name="colorButtonLightText">@color/colorPrimary</color>
+    <color name="colorButtonLight">@color/colorAccent</color>
+    <color name="colorButtonLightText">@color/colorPrimaryDark</color>
 
 
 
