@@ -45,6 +45,11 @@ public class OLDRoom {
         return description;
     }
     public int getBackgroundColor() { return backgroundColor; }
+    public boolean hasMedia() { return media != null; }
+    public RoomMedia getMedia() {
+        return media;
+    }
+
     public RoomComment getComment(int index) {
         if (index < 0 || index >= comments.size()) throw new IllegalStateException();
         return comments.get(index);

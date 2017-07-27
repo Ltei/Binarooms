@@ -16,17 +16,17 @@ import lteii._10rooms.utils.NavigableGraphView;
 
 public class AllRoomsTreeView extends NavigableGraphView {
 
-    private class Node {
-
-        private final int floor;
+    private static class Node {
         private final float x, y;
+        private final float bigRayon, smallRayon;
         private final int color;
         private final @Nullable Node parent;
 
-        private Node(int floor, float x, float y, int color, @Nullable Node parent) {
-            this.floor = floor;
+        private Node(float x, float y, float bigRayon, float smallRayon, int color, @Nullable Node parent) {
             this.x = x;
             this.y = y;
+            this.bigRayon = bigRayon;
+            this.smallRayon = smallRayon;
             this.color = color;
             this.parent = parent;
         }
@@ -34,13 +34,9 @@ public class AllRoomsTreeView extends NavigableGraphView {
 
 
     private boolean isSetup = false;
-    private ArrayList<Node> nodes = null;
 
+    private ArrayList<Node> nodes = null;
     private int itemsBackgroundColor;
-    private float nodeBigRayon;
-    private float nodeSmallRayon;
-    private float linkBigWidth;
-    private float linkSmallWidth;
 
 
     public AllRoomsTreeView(Context context) {
@@ -53,19 +49,58 @@ public class AllRoomsTreeView extends NavigableGraphView {
     @Override
     public void setup() {
         super.setup();
-
         final Context context = getContext();
 
         // Extract nodes from rooms
         nodes = new ArrayList<>();
-        extractNodes(Database.SOURCE_ROOM, null, 0, 0, 0, 400, 400);
+        extractNodes(Database.SOURCE_ROOM, null, 0, 0,
+                MathUtils.dpToPixels(25, context), MathUtils.dpToPixels(20, context),
+                400, 400);
 
-        // Setup graphics
         itemsBackgroundColor = Color.argb(255, 150, 150, 150);
-        nodeBigRayon = MathUtils.dpToPixels(25, context);
-        nodeSmallRayon = MathUtils.dpToPixels(20, context);
-        linkBigWidth = MathUtils.dpToPixels(20, context);
-        linkSmallWidth = MathUtils.dpToPixels(10, context);
+        centerOnNode(nodes.get(0));
+        isSetup = true;
+    }
+
+
+    private void extractNodes(OLDRoom room, @Nullable Node parent, float x, float y, float bigRayon, float smallRayon, float xSpace, float ySpace) {
+        final Node dot = new Node(x, y, bigRayon, smallRayon, room.getBackgroundColor(), parent);
+        nodes.add(dot);
+        if (room.getChild(0) != null) extractNodes(room.getChild(0), dot, x+xSpace, y-ySpace, bigRayon/2f, smallRayon/2f, xSpace/2f, ySpace/2f);
+        if (room.getChild(1) != null) extractNodes(room.getChild(1), dot, x-xSpace, y-ySpace, bigRayon/2f, smallRayon/2f, xSpace/2f, ySpace/2f);
+    }
+    private void centerOnNode(Node node) {
+        camera.centerX = -node.x;
+        camera.centerY = -node.y;
+        invalidate();
+    }
+
+
+    @Override
+    public void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
+        if (isSetup) {
+            for (Node node : nodes)
+                drawCircle(canvas, node.x, node.y, node.bigRayon, itemsBackgroundColor);
+
+            for (Node node : nodes)
+                if (node.parent != null)
+                    drawLine(canvas, node.x, node.y, node.parent.x, node.parent.y, node.bigRayon, itemsBackgroundColor);
+
+            for (Node node : nodes)
+                if (node.parent != null)
+                    drawLine(canvas, node.x, node.y, node.parent.x, node.parent.y, node.smallRayon, node.color, node.parent.color);
+
+            for (Node node : nodes)
+                drawCircle(canvas, node.x, node.y, node.smallRayon, node.color);
+        }
+    }
+
+}
+
+
+
 
         /*// Rescale nodes positions
         float minX = 0, maxX = 0, minY = 0, maxY = 0;
@@ -81,45 +116,3 @@ public class AllRoomsTreeView extends NavigableGraphView {
             dot.x = MathUtils.scaleValue(dot.x, minX, maxX, nodeBigRayon, newMax);
             dot.y = MathUtils.scaleValue(dot.y, minY, maxY, nodeBigRayon, newMax);
         }*/
-
-        // Finish
-        centerOnNode(nodes.get(0));
-        isSetup = true;
-    }
-
-
-    private void extractNodes(OLDRoom room, @Nullable Node parent, int floor, float x, float y, float xSpace, float ySpace) {
-        final Node dot = new Node(floor, (int)x, (int)y, room.getBackgroundColor(), parent);
-        nodes.add(dot);
-        if (room.getChild(0) != null) extractNodes(room.getChild(0), dot, floor+1, x+xSpace, y-ySpace, xSpace/2f, ySpace);
-        if (room.getChild(1) != null) extractNodes(room.getChild(1), dot, floor+1, x-xSpace, y-ySpace, xSpace/2f, ySpace);
-    }
-    private void centerOnNode(Node node) {
-        camera.centerX = -node.x;
-        camera.centerY = -node.y;
-        invalidate();
-    }
-
-
-    @Override
-    public void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-
-        if (isSetup) {
-            for (Node node : nodes)
-                drawCircle(canvas, node.x, node.y, nodeBigRayon, itemsBackgroundColor);
-
-            for (Node node : nodes)
-                if (node.parent != null)
-                    drawLine(canvas, node.x, node.y, node.parent.x, node.parent.y, linkBigWidth, itemsBackgroundColor);
-
-            for (Node node : nodes)
-                if (node.parent != null)
-                    drawLine(canvas, node.x, node.y, node.parent.x, node.parent.y, linkSmallWidth, node.color, node.parent.color);
-
-            for (Node node : nodes)
-                drawCircle(canvas, node.x, node.y, nodeSmallRayon, node.color);
-        }
-    }
-
-}

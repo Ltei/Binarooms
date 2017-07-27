@@ -142,7 +142,7 @@ public class SubStateRoomEditor extends SubState {
                     return;
                 }
 
-                final OLDRoom created = new OLDRoom(title, description, null, bakcgroundColorPicker.getPickedColor());
+                final OLDRoom created = new OLDRoom(title, description, roomMedia, bakcgroundColorPicker.getPickedColor());
                 parent.setChild(indexInParent, created);
 
                 final StateRoom state = new StateRoom();

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import lteii._10rooms.R;
@@ -43,6 +44,12 @@ public class StateRoom extends State {
         // Setup texts
         ((TextView) rootView.findViewById(R.id.title_textview)).setText(room.getTitle());
         ((TextView) rootView.findViewById(R.id.description_textview)).setText(room.getDescription());
+
+        // Setup media
+        if (room.hasMedia()) {
+            System.out.println("HELLO HELLO HELLO");
+            ((FrameLayout)rootView.findViewById(R.id.media_holder)).addView(room.getMedia().getView(context));
+        }
 
         // Get buttons colors
         final int buttonColor;
