@@ -15,6 +15,7 @@
 
 
     <color name="colorBackground">@color/colorPrimary</color>
+    <color name="colorToolbar">#303030</color>
 
     <color name="colorTextLight">@color/colorAccentLight</color>
     <color name="colorTextDark">@color/colorPrimaryDark</color>

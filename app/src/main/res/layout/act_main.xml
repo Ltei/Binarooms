@@ -9,34 +9,25 @@
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
+        android:background="@color/colorToolbar"
         android:textAlignment="center">
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginStart="@dimen/title_size"
-            android:layout_marginLeft="@dimen/title_size"
-            android:background="@android:drawable/ic_menu_more"
+            android:layout_marginRight="18dp"
+            android:layout_marginEnd="18dp"
+            android:background="@drawable/ic_menu_white_36dp"
             android:id="@+id/toolbar_menu_button"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Hello world"
+            android:text="Binarooms"
             android:textSize="@dimen/title_size" />
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginEnd="@dimen/title_size"
-            android:layout_marginRight="@dimen/title_size"
-            android:background="@android:drawable/ic_menu_info_details"
-            android:id="@+id/toolbar_infos_button"/>
     </android.support.v7.widget.Toolbar>
 
     <!-- DrawerLayout -->
-    <lteii._10rooms.MenuDrawerLayout
+    <lteii.binarooms.MenuDrawerLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -59,7 +50,7 @@
             android:background="#111"
             android:id="@+id/left_drawer"/>
 
-    </lteii._10rooms.MenuDrawerLayout>
+    </lteii.binarooms.MenuDrawerLayout>
 
 </LinearLayout>
 
