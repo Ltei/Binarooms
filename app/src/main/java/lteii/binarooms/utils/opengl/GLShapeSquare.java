@@ -6,31 +6,36 @@ import android.opengl.GLES20;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
+import java.nio.ShortBuffer;
 
-public class GLShapeTriangle extends GLShape {
+public class GLShapeSquare extends GLShape {
 
     private final FloatBuffer vertexBuffer;
+    private final ShortBuffer drawListBuffer;
     private final int mProgram;
     private int mPositionHandle;
     private int mColorHandle;
     private int mMVPMatrixHandle;
 
-    static float triangleCoords[] = {
-            0.0f,  0.622008459f, 0.0f,
-            -0.5f, -0.311004243f, 0.0f,
-            0.5f, -0.311004243f, 0.0f
-    };
+    static float squareCoords[] = {
+            -0.5f,  0.5f, 0.0f,
+            -0.5f, -0.5f, 0.0f,
+            0.5f, -0.5f, 0.0f,
+            0.5f,  0.5f, 0.0f };
+    private final short drawOrder[] = { 0, 1, 2, 0, 2, 3 };
+    float color[] = { 0.2f, 0.709803922f, 0.898039216f, 1.0f };
 
-    private final int vertexCount = triangleCoords.length / VERTEX_DIMENSION;
-    private float color[] = { 0.63671875f, 0.76953125f, 0.22265625f, 0.0f };
-
-
-    public GLShapeTriangle() {
-        final ByteBuffer bb = ByteBuffer.allocateDirect(triangleCoords.length * BYTES_PER_FLOAT);
+    public GLShapeSquare() {
+        final ByteBuffer bb = ByteBuffer.allocateDirect(squareCoords.length * BYTES_PER_FLOAT);
         bb.order(ByteOrder.nativeOrder());
         vertexBuffer = bb.asFloatBuffer();
-        vertexBuffer.put(triangleCoords);
+        vertexBuffer.put(squareCoords);
         vertexBuffer.position(0);
+        final ByteBuffer dlb = ByteBuffer.allocateDirect(drawOrder.length * BYTES_PER_SHORT);
+        dlb.order(ByteOrder.nativeOrder());
+        drawListBuffer = dlb.asShortBuffer();
+        drawListBuffer.put(drawOrder);
+        drawListBuffer.position(0);
         final int vertexShader = OGLRenderer.loadShader(GLES20.GL_VERTEX_SHADER, DEFAULT_VERTEX_SHADER_CODE);
         final int fragmentShader = OGLRenderer.loadShader(GLES20.GL_FRAGMENT_SHADER, DEFAULT_FRAGMENT_SHADER_CODE);
         mProgram = GLES20.glCreateProgram();
@@ -50,7 +55,7 @@ public class GLShapeTriangle extends GLShape {
         OGLRenderer.checkGlError("glGetUniformLocation");
         GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mvpMatrix, 0);
         OGLRenderer.checkGlError("glUniformMatrix4fv");
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
+        GLES20.glDrawElements(GLES20.GL_TRIANGLES, drawOrder.length, GLES20.GL_UNSIGNED_SHORT, drawListBuffer);
         GLES20.glDisableVertexAttribArray(mPositionHandle);
     }
 }

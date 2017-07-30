@@ -1,12 +1,14 @@
-package lteii.binarooms.utils;
+/*package lteii.binarooms.utils;
 
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.util.AttributeSet;
 
-import lteii.binarooms.utils.opengl.GLRenderer;
-import lteii.binarooms.utils.opengl.GLShapeCircleV3;
+import javax.microedition.khronos.opengles.GL10;
+
+import lteii.binarooms.trash.GLRenderer;
+import lteii.binarooms.trash.GLShapeCircleV3;
 
 
 public class NavigableViewV2 extends GLSurfaceView {
@@ -26,10 +28,11 @@ public class NavigableViewV2 extends GLSurfaceView {
 
         setRenderer(new GLRenderer() {
             @Override
-            public void drawShapes(float[] mvpMatrix) {
+            public void drawShapes(GL10 gl, float[] mvpMatrix) {
                 circle.draw(mvpMatrix);
             }
         });
     }
 
 }
+*/

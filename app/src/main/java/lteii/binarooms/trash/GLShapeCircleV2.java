@@ -1,4 +1,4 @@
-package lteii.binarooms.utils.opengl;
+/*package lteii.binarooms.trash;
 
 
 import java.nio.FloatBuffer;
@@ -54,4 +54,4 @@ public class GLShapeCircleV2 extends GLShape {
         gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
     }
 
-}
+}*/

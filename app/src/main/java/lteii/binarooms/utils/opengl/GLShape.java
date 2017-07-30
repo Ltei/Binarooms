@@ -1,24 +1,27 @@
 package lteii.binarooms.utils.opengl;
 
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
+public class GLShape {
 
-import javax.microedition.khronos.opengles.GL10;
+    protected static final String DEFAULT_VERTEX_SHADER_CODE =
+            "uniform mat4 uMVPMatrix;" +
+                    "attribute vec4 vPosition;" +
+                    "void main() {" +
+                    "  gl_Position = uMVPMatrix * vPosition;" +
+                    "}";
 
-public abstract class GLShape {
+    protected static final String DEFAULT_FRAGMENT_SHADER_CODE =
+            "precision mediump float;" +
+                    "uniform vec4 vColor;" +
+                    "void main() {" +
+                    "  gl_FragColor = vColor;" +
+                    "}";
 
-    protected static FloatBuffer makeFloatBuffer(float[] arr) {
-        final ByteBuffer bb = ByteBuffer.allocateDirect(arr.length * 4);
-        bb.order(ByteOrder.nativeOrder());
-        final FloatBuffer fb = bb.asFloatBuffer();
-        fb.put(arr);
-        fb.position(0);
-        return fb;
-    }
+    protected static final int BYTES_PER_FLOAT = 4;
+    protected static final int BYTES_PER_SHORT = 2;
 
+    protected static final int VERTEX_DIMENSION = 3;
+    protected static final int VERTEX_STRIDE = VERTEX_DIMENSION * BYTES_PER_FLOAT;
 
-    public abstract void draw(GL10 gl);
 
 }

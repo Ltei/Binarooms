@@ -18,7 +18,7 @@ public class StateRoomsMap extends State {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.state_rooms_map, container, false);
 
-        ((RoomsMapView)rootView.findViewById(R.id.all_rooms_treeview)).setup();
+        //((RoomsMapView)rootView.findViewById(R.id.all_rooms_treeview)).setup();
 
         return rootView;
     }
