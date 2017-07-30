@@ -1,4 +1,4 @@
-package lteii.binarooms.utils.opengl;
+/*package lteii.binarooms.trash;
 
 
 import android.content.Context;
@@ -42,11 +42,11 @@ public class OGLSurfaceView  extends GLSurfaceView {
             case MotionEvent.ACTION_MOVE:
                 float dx = x - mPreviousX;
                 float dy = y - mPreviousY;
-                // reverse direction of rotation above the mid-line
+                // reverse direction of rotation above the mid-newLine
                 if (y > getHeight() / 2) {
                     dx = dx * -1 ;
                 }
-                // reverse direction of rotation to left of the mid-line
+                // reverse direction of rotation to left of the mid-newLine
                 if (x < getWidth() / 2) {
                     dy = dy * -1 ;
                 }
@@ -60,3 +60,4 @@ public class OGLSurfaceView  extends GLSurfaceView {
         return true;
     }
 }
+*/

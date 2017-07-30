@@ -29,8 +29,9 @@ public class GLRenderer  implements GLSurfaceView.Renderer {
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         mTriangle = new GLShapeTriangle();
-        mSquare   = new GLShapeSquare();
-        mCircle = new GLShapeCircle();
+        //mSquare = GLShapeSquare.newSquare(-0.3f, 0.25f, 0.25f);
+        mSquare = GLShapeSquare.newLine(0,0, 0.5f,0.5f, 0.1f);
+        mCircle = new GLShapeCircle(0.5f, 0.5f, 0.25f);
     }
 
     @Override
@@ -42,8 +43,8 @@ public class GLRenderer  implements GLSurfaceView.Renderer {
         mSquare.draw(mMVPMatrix);
         Matrix.setRotateM(mRotationMatrix, 0, mAngle, 0, 0, 1.0f);
         Matrix.multiplyMM(scratch, 0, mMVPMatrix, 0, mRotationMatrix, 0);
-        mTriangle.draw(scratch);
-        mCircle.draw(mMVPMatrix);
+        //mTriangle.draw(scratch);
+        //mCircle.draw(mMVPMatrix);
     }
 
     @Override

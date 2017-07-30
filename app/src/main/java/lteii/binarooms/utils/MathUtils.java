@@ -8,6 +8,10 @@ import java.util.Random;
 
 public class MathUtils {
 
+    public static double RAD_TO_DEG = 180.0/Math.PI;
+    public static double DEG_TO_RAD = Math.PI/180.0;
+
+
     public static boolean isBrightColor(int color) {
         if (android.R.color.transparent == color) return true;
         final int red = Color.red(color);

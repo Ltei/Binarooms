@@ -1,4 +1,4 @@
-package lteii.binarooms.utils.opengl;
+/*package lteii.binarooms.trash;
 
 
 import android.opengl.GLES20;
@@ -43,9 +43,8 @@ public class OGLShapeSquare {
     private final short drawOrder[] = { 0, 1, 2, 0, 2, 3 }; // order to draw vertices
     private final int vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
     float color[] = { 0.2f, 0.709803922f, 0.898039216f, 1.0f };
-    /**
-     * Sets up the drawing object data for use in an OpenGL ES context.
-     */
+
+    // Sets up the drawing object data for use in an OpenGL ES context.
     public OGLShapeSquare() {
         // initialize vertex byte buffer for shape coordinates
         ByteBuffer bb = ByteBuffer.allocateDirect(
@@ -75,12 +74,8 @@ public class OGLShapeSquare {
         GLES20.glAttachShader(mProgram, fragmentShader); // add the fragment shader to program
         GLES20.glLinkProgram(mProgram);                  // create OpenGL program executables
     }
-    /**
-     * Encapsulates the OpenGL ES instructions for drawing this shape.
-     *
-     * @param mvpMatrix - The Model View Project matrix in which to draw
-     * this shape.
-     */
+
+    //Encapsulates the OpenGL ES instructions for drawing this shape. @param mvpMatrix - The Model View Project matrix in which to draw this shape.
     public void draw(float[] mvpMatrix) {
         // Add program to OpenGL environment
         GLES20.glUseProgram(mProgram);
@@ -103,11 +98,11 @@ public class OGLShapeSquare {
         // Apply the projection and view transformation
         GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mvpMatrix, 0);
         OGLRenderer.checkGlError("glUniformMatrix4fv");
-        // Draw the square
+        // Draw the newSquare
         GLES20.glDrawElements(
                 GLES20.GL_TRIANGLES, drawOrder.length,
                 GLES20.GL_UNSIGNED_SHORT, drawListBuffer);
         // Disable vertex array
         GLES20.glDisableVertexAttribArray(mPositionHandle);
     }
-}
+}*/

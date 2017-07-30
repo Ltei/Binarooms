@@ -1,4 +1,4 @@
-package lteii.binarooms.utils.opengl;
+/*package lteii.binarooms.trash;
 
 
 import android.opengl.GLES20;
@@ -41,7 +41,7 @@ public class OGLRenderer implements GLSurfaceView.Renderer {
         Matrix.setLookAtM(mViewMatrix, 0, 0, 0, -3, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
         // Calculate the projection and view transformation
         Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);
-        // Draw square
+        // Draw newSquare
         mSquare.draw(mMVPMatrix);
         // Create a rotation for the triangle
         // Use the following code to generate constant rotation. Leave this code out when using TouchEvents.
@@ -88,4 +88,4 @@ public class OGLRenderer implements GLSurfaceView.Renderer {
     public float getAngle() { return mAngle; }
     public void setAngle(float angle) { this.mAngle = angle; }
 
-}
+}*/

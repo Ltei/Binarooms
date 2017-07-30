@@ -1,4 +1,4 @@
-package lteii.binarooms.utils.opengl;
+/*package lteii.binarooms.trash;
 
 
 import android.opengl.GLES20;
@@ -42,9 +42,8 @@ public class OGLShapeTriangle {
     private final int vertexCount = triangleCoords.length / COORDS_PER_VERTEX;
     private final int vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
     float color[] = { 0.63671875f, 0.76953125f, 0.22265625f, 0.0f };
-    /**
-     * Sets up the drawing object data for use in an OpenGL ES context.
-     */
+
+    // Sets up the drawing object data for use in an OpenGL ES context.
     public OGLShapeTriangle() {
         // initialize vertex byte buffer for shape coordinates
         ByteBuffer bb = ByteBuffer.allocateDirect(
@@ -66,12 +65,9 @@ public class OGLShapeTriangle {
         GLES20.glAttachShader(mProgram, fragmentShader); // add the fragment shader to program
         GLES20.glLinkProgram(mProgram);                  // create OpenGL program executables
     }
-    /**
-     * Encapsulates the OpenGL ES instructions for drawing this shape.
-     *
-     * @param mvpMatrix - The Model View Project matrix in which to draw
-     * this shape.
-     */
+
+
+    // Encapsulates the OpenGL ES instructions for drawing this shape. @param mvpMatrix - The Model View Project matrix in which to drawthis shape.
     public void draw(float[] mvpMatrix) {
         // Add program to OpenGL environment
         GLES20.glUseProgram(mProgram);
@@ -100,3 +96,4 @@ public class OGLShapeTriangle {
         GLES20.glDisableVertexAttribArray(mPositionHandle);
     }
 }
+*/

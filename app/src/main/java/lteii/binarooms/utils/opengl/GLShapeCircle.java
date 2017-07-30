@@ -10,25 +10,23 @@ import java.nio.FloatBuffer;
 
 public class GLShapeCircle extends GLShape {
 
+    private static final int NB_VERTEX = 364;
 
-    private  int mProgram, mPositionHandle, mColorHandle, mMVPMatrixHandle ;
-    private FloatBuffer vertexBuffer;
-    private float vertices[] = new float[364 * 3];
 
-    float color[] = { 0.00f, 0.76953125f, 0.22265625f, 1.0f };
-    private final int vertexCount = 364 * 3 / VERTEX_DIMENSION;
+    private final FloatBuffer vertexBuffer;
 
-    public GLShapeCircle(){
-        int vertexShader = GLRenderer.loadShader(GLES20.GL_VERTEX_SHADER, DEFAULT_VERTEX_SHADER_CODE);
-        int fragmentShader = GLRenderer.loadShader(GLES20.GL_FRAGMENT_SHADER, DEFAULT_FRAGMENT_SHADER_CODE);
-        vertices[0] = 0;
-        vertices[1] = 0;
+    private final float vertices[] = new float[NB_VERTEX * VERTEX_DIMENSION];
+    private final float color[] = { 0.00f, 0.76953125f, 0.22265625f, 1.0f };
+
+
+    public GLShapeCircle(float centerX, float centerY, float rayon){
+        vertices[0] = centerX;
+        vertices[1] = centerY;
         vertices[2] = 0;
-        for(int i =0; i <363; i++){
-            vertices[(i * 3)+ 0] = (float) (0.5 * Math.cos((3.14/180) * (float)i ));
-            vertices[(i * 3)+ 1] = (float) (0.5 * Math.sin((3.14/180) * (float)i ));
+        for(int i=0; i<(NB_VERTEX-1); i++){
+            vertices[(i * 3)+ 0] = centerX + (float) (rayon * Math.cos((double)i*Math.PI/180.0) );
+            vertices[(i * 3)+ 1] = centerY + (float) (rayon * Math.sin((double)i*Math.PI/180.0) );
             vertices[(i * 3)+ 2] = 0;
-            //Log.v("Thread",""+vertices[(i*3)+0]+", "+vertices[(i*3)+1]+", "+vertices[(i*3)+2]);
         }
 
         Log.v("Thread",""+vertices[0]+","+vertices[1]+","+vertices[2]);
@@ -38,25 +36,24 @@ public class GLShapeCircle extends GLShape {
         vertexBuffer.put(vertices);
         vertexBuffer.position(0);
 
-        mProgram = GLES20.glCreateProgram();
-        GLES20.glAttachShader(mProgram, vertexShader);
-        GLES20.glAttachShader(mProgram, fragmentShader);
-        GLES20.glLinkProgram(mProgram);
-
+        GLES20.glLinkProgram(DEFAULT_SHADER_PROGRAM);
     }
 
 
-    public void draw (float[] mvpMatrix){
-        GLES20.glUseProgram(mProgram);
-        mPositionHandle = GLES20.glGetAttribLocation(mProgram, "vPosition");
+    public void draw(float[] mvpMatrix) {
+        GLES20.glUseProgram(DEFAULT_SHADER_PROGRAM);
+        final int mPositionHandle = GLES20.glGetAttribLocation(DEFAULT_SHADER_PROGRAM, "vPosition");
         GLES20.glEnableVertexAttribArray(mPositionHandle);
-        GLES20.glVertexAttribPointer(mPositionHandle, VERTEX_DIMENSION, GLES20.GL_FLOAT, false, VERTEX_STRIDE, vertexBuffer);
-        mColorHandle = GLES20.glGetUniformLocation(mProgram, "vColor");
+        GLES20.glVertexAttribPointer(mPositionHandle, VERTEX_DIMENSION, GLES20.GL_FLOAT, false, BYTES_PER_VERTEX, vertexBuffer);
+        final int mColorHandle = GLES20.glGetUniformLocation(DEFAULT_SHADER_PROGRAM, "vColor");
         GLES20.glUniform4fv(mColorHandle, 1, color, 0);
-        mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
+        final int mMVPMatrixHandle = GLES20.glGetUniformLocation(DEFAULT_SHADER_PROGRAM, "uMVPMatrix");
+        GLRenderer.checkGlError("glGetUniformLocation");
         GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mvpMatrix, 0);
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLE_FAN, 0, vertexCount);
+        GLRenderer.checkGlError("glUniformMatrix4fv");
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLE_FAN, 0, NB_VERTEX);
         GLES20.glDisableVertexAttribArray(mPositionHandle);
     }
 
 }
+
