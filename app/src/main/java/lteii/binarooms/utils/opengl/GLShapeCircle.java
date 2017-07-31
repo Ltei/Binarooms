@@ -2,7 +2,6 @@ package lteii.binarooms.utils.opengl;
 
 
 import android.opengl.GLES20;
-import android.util.Log;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -10,33 +9,29 @@ import java.nio.FloatBuffer;
 
 public class GLShapeCircle extends GLShape {
 
-    private static final int NB_VERTEX = 364;
+    private static final int NB_VERTEX = 25;
+    private static final int VERTEX_BUFFER_SIZE = NB_VERTEX * BYTES_PER_VERTEX;
 
 
     private final FloatBuffer vertexBuffer;
-
-    private final float vertices[] = new float[NB_VERTEX * VERTEX_DIMENSION];
     private final float color[] = { 0.00f, 0.76953125f, 0.22265625f, 1.0f };
 
-
-    public GLShapeCircle(float centerX, float centerY, float rayon){
-        vertices[0] = centerX;
-        vertices[1] = centerY;
-        vertices[2] = 0;
-        for(int i=0; i<(NB_VERTEX-1); i++){
-            vertices[(i * 3)+ 0] = centerX + (float) (rayon * Math.cos((double)i*Math.PI/180.0) );
-            vertices[(i * 3)+ 1] = centerY + (float) (rayon * Math.sin((double)i*Math.PI/180.0) );
-            vertices[(i * 3)+ 2] = 0;
+    public GLShapeCircle(float centerX, float centerY, float rayon) {
+        final float[] coords = new float[NB_VERTEX * VERTEX_DIMENSION];
+        final double cosMult = 2.0*Math.PI/NB_VERTEX;
+        for(int i=0; i<NB_VERTEX; i++){
+            coords[(i * 3)+ 0] = centerX + (float) (rayon * Math.cos((double)i*cosMult) );
+            coords[(i * 3)+ 1] = centerY + (float) (rayon * Math.sin((double)i*cosMult) );
+            coords[(i * 3)+ 2] = 0;
         }
 
-        Log.v("Thread",""+vertices[0]+","+vertices[1]+","+vertices[2]);
-        ByteBuffer vertexByteBuffer = ByteBuffer.allocateDirect(vertices.length * 4);
+        ByteBuffer vertexByteBuffer = ByteBuffer.allocateDirect(VERTEX_BUFFER_SIZE);
         vertexByteBuffer.order(ByteOrder.nativeOrder());
         vertexBuffer = vertexByteBuffer.asFloatBuffer();
-        vertexBuffer.put(vertices);
+        vertexBuffer.put(coords);
         vertexBuffer.position(0);
 
-        GLES20.glLinkProgram(DEFAULT_SHADER_PROGRAM);
+        //GLES20.glLinkProgram(DEFAULT_SHADER_PROGRAM);
     }
 
 

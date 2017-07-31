@@ -19,11 +19,10 @@ public class GLShape {
                     "  gl_FragColor = vColor;" +
                     "}";
 
-    protected static final int DEFAULT_VERTEX_SHADER = GLRenderer.loadShader(GLES20.GL_VERTEX_SHADER, DEFAULT_VERTEX_SHADER_CODE);
-    protected static final int DEFAULT_FRAGMENT_SHADER = GLRenderer.loadShader(GLES20.GL_FRAGMENT_SHADER, DEFAULT_FRAGMENT_SHADER_CODE);
+    private static final int DEFAULT_VERTEX_SHADER = GLRenderer.loadShader(GLES20.GL_VERTEX_SHADER, DEFAULT_VERTEX_SHADER_CODE);
+    private static final int DEFAULT_FRAGMENT_SHADER = GLRenderer.loadShader(GLES20.GL_FRAGMENT_SHADER, DEFAULT_FRAGMENT_SHADER_CODE);
 
     protected static final int DEFAULT_SHADER_PROGRAM;
-
     static {
         DEFAULT_SHADER_PROGRAM = GLES20.glCreateProgram();
         GLES20.glAttachShader(DEFAULT_SHADER_PROGRAM, DEFAULT_VERTEX_SHADER);
@@ -31,7 +30,7 @@ public class GLShape {
         GLES20.glLinkProgram(DEFAULT_SHADER_PROGRAM);
     }
 
-    protected static final int BYTES_PER_FLOAT = 4;
+    private static final int BYTES_PER_FLOAT = 4;
     protected static final int BYTES_PER_SHORT = 2;
 
     protected static final int VERTEX_DIMENSION = 3;

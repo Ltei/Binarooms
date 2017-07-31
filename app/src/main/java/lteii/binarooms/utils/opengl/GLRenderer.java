@@ -28,30 +28,33 @@ public class GLRenderer  implements GLSurfaceView.Renderer {
     @Override
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        mTriangle = new GLShapeTriangle();
-        //mSquare = GLShapeSquare.newSquare(-0.3f, 0.25f, 0.25f);
+        mTriangle = new GLShapeTriangle(-0.3f,0.0f, 0.3f,0.0f, 0.0f,0.5f);
+        //mSquare = GLShapeSquare.newSquare(0.25f, 0.25f, 0.5f);
         mSquare = GLShapeSquare.newLine(0,0, 0.5f,0.5f, 0.1f);
-        mCircle = new GLShapeCircle(0.5f, 0.5f, 0.25f);
+        mCircle = new GLShapeCircle(0.25f, 0.5f, 0.25f);
     }
 
     @Override
     public void onDrawFrame(GL10 unused) {
-        float[] scratch = new float[16];
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
+
         Matrix.setLookAtM(mViewMatrix, 0, 0, 0, -3, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
         Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);
         mSquare.draw(mMVPMatrix);
-        Matrix.setRotateM(mRotationMatrix, 0, mAngle, 0, 0, 1.0f);
-        Matrix.multiplyMM(scratch, 0, mMVPMatrix, 0, mRotationMatrix, 0);
+        mCircle.draw(mMVPMatrix);
+        mTriangle.draw(mMVPMatrix);
+
+        //final float[] scratch = new float[16];
+        //Matrix.setRotateM(mRotationMatrix, 0, mAngle, 0, 0, 1.0f);
+        //Matrix.multiplyMM(scratch, 0, mMVPMatrix, 0, mRotationMatrix, 0);
         //mTriangle.draw(scratch);
-        //mCircle.draw(mMVPMatrix);
     }
 
     @Override
     public void onSurfaceChanged(GL10 unused, int width, int height) {
         GLES20.glViewport(0, 0, width, height);
         float ratio = (float) width / height;
-        Matrix.frustumM(mProjectionMatrix, 0, -ratio, ratio, -1, 1, 3, 7);
+        Matrix.frustumM(mProjectionMatrix, 0, ratio, -ratio, -1, 1, 3, 7);
     }
 
 
