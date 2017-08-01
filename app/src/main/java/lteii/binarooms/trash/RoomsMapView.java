@@ -1,4 +1,4 @@
-package lteii.binarooms.ui;
+/*package lteii.binarooms.ui;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -75,6 +75,8 @@ public class RoomsMapView extends NavigableGraphView {
         invalidate();
     }
 
+
+
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -96,7 +98,7 @@ public class RoomsMapView extends NavigableGraphView {
         }
     }
 
-}
+}*/
 
 
 

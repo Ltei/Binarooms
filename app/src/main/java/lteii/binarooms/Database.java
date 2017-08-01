@@ -12,7 +12,7 @@ public class Database {
     public static void setup(Context context) {
 
         SOURCE_ROOM = new OLDRoom("Hello", "This is the source room", null, context.getResources().getColor(R.color.colorBackground));
-        addFloors(7, SOURCE_ROOM);
+        addFloors(10, SOURCE_ROOM);
     }
 
     private static void addFloors(int nbFloors, OLDRoom source) {
