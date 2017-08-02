@@ -17,6 +17,7 @@ import lteii.binarooms.utils.opengl.GLShape;
 import lteii.binarooms.utils.opengl.GLShapeCircle;
 import lteii.binarooms.utils.opengl.GLShapeSquare;
 import lteii.binarooms.utils.opengl.GLSurfaceView;
+import lteii.binarooms.utils.opengl.GLSurfaceViewNavigable;
 
 
 public class StateRoomsMap extends State {
@@ -45,7 +46,7 @@ public class StateRoomsMap extends State {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.state_rooms_map, container, false);
 
-        final GLSurfaceView glSurfaceView = rootView.findViewById(R.id.all_rooms_treeview);
+        final GLSurfaceViewNavigable glSurfaceView = rootView.findViewById(R.id.all_rooms_treeview);
 
         nodes = new ArrayList<>();
         extractNodes(Database.SOURCE_ROOM, null, 0, 0, 0.25f, 0.2f, 0.3f, 0.5f);
@@ -63,7 +64,10 @@ public class StateRoomsMap extends State {
 
         glSurfaceView.setup(new GLSurfaceView.ShapeDrawer() {
             @Override
-            public void drawShapes(float[] mvpMatrix) {for (GLShape shape : shapes) shape.draw();}
+            public void drawShapes() {
+                for (GLShape shape : shapes)
+                    shape.draw();
+            }
         });
 
         return rootView;
