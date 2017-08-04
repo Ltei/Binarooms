@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import lteii.binarooms.state.StateInfos;
 import lteii.binarooms.state.StateRoom;
 import lteii.binarooms.state.StatesManager;
+import lteii.binarooms.state.SubStateRoomsMap;
 
 
 public class ActMain extends AppCompatActivity {
@@ -18,6 +19,8 @@ public class ActMain extends AppCompatActivity {
 
 
     public static StatesManager STATES_MANAGER = null;
+    public static Database DATABASE = null;
+    public static User USER = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +52,8 @@ public class ActMain extends AppCompatActivity {
     }
 
     private void onPermissionCheckValidated() {
-        Database.setup(getApplicationContext());
+        DATABASE = new Database(getApplicationContext());
+        USER = new User();
 
         final MenuDrawerLayout menuDrawerLayout = (MenuDrawerLayout)findViewById(R.id.MenuDrawerLayout);
         menuDrawerLayout.setup(this);
@@ -66,8 +70,19 @@ public class ActMain extends AppCompatActivity {
             }
         });
 
+        final ImageButton toolbarMapButton = (ImageButton) findViewById(R.id.toolbar_map_button);
+        toolbarMapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (STATES_MANAGER.getCurrentState() instanceof SubStateRoomsMap) {
+                    STATES_MANAGER.popState();
+                } else {
+                    STATES_MANAGER.setState(new SubStateRoomsMap());
+                }
+            }
+        });
+
         STATES_MANAGER = new StatesManager(getFragmentManager(), menuDrawerLayout, new StateInfos());
-        //STATES_MANAGER = new StatesManager(getFragmentManager(), menuDrawerLayout, new StateRoom().setup(Database.SOURCE_ROOM));
     }
 
 

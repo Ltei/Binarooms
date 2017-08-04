@@ -10,26 +10,25 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import lteii.binarooms.state.State;
-import lteii.binarooms.state.StateRoomsMap;
 import lteii.binarooms.state.StateInfos;
 import lteii.binarooms.state.StateRoom;
 import lteii.binarooms.state.SubState;
 
+import static lteii.binarooms.ActMain.DATABASE;
 import static lteii.binarooms.ActMain.STATES_MANAGER;
 
 public class MenuDrawerLayout extends DrawerLayout {
 
-    private static final String[] menuStrings = new String[] {"Rooms map", "Navigate", "Your rooms", "Saved rooms", "Tendencies", "Infos"};
+    private static final String[] menuStrings = new String[] {"Navigate", "Your rooms", "Saved rooms", "Tendencies", "Infos"};
 
-    public static final int MIN_MENU_IDX = -1, MAX_MENU_IDX = 5;
+    public static final int MIN_MENU_IDX = -1, MAX_MENU_IDX = 4;
     public static final int MENU_IDX_NONE = -1;
 
-    public static final int MENU_IDX_ALL_ROOMS = 0;
-    public static final int MENU_IDX_NAVIGATE = 1;
-    public static final int MENU_IDX_YOUR_ROOMS = 2;
-    public static final int MENU_IDX_SAVED_ROOMS = 3;
-    public static final int MENU_IDX_TENDENCIES = 4;
-    public static final int MENU_IDX_INFOS = 5;
+    public static final int MENU_IDX_NAVIGATE = 0;
+    public static final int MENU_IDX_YOUR_ROOMS = 1;
+    public static final int MENU_IDX_SAVED_ROOMS = 2;
+    public static final int MENU_IDX_TENDENCIES = 3;
+    public static final int MENU_IDX_INFOS = 4;
 
 
     private int menuIndex = MENU_IDX_NONE;
@@ -52,10 +51,8 @@ public class MenuDrawerLayout extends DrawerLayout {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position != menuIndex) {
-                    if (position == MENU_IDX_ALL_ROOMS) {
-                        STATES_MANAGER.setState(new StateRoomsMap());
-                    } else if (position == MENU_IDX_NAVIGATE) {
-                        STATES_MANAGER.setState(new StateRoom().setup(Database.SOURCE_ROOM));
+                    if (position == MENU_IDX_NAVIGATE) {
+                        STATES_MANAGER.setState(new StateRoom().setup(DATABASE.sourceRoom));
                     } else if (position == MENU_IDX_YOUR_ROOMS) {
 
                     } else if (position == MENU_IDX_SAVED_ROOMS) {
@@ -75,9 +72,7 @@ public class MenuDrawerLayout extends DrawerLayout {
     }
 
     public void setupMenuIndex(State currentState) {
-        if (currentState instanceof StateRoomsMap) {
-            setMenuIndex(MENU_IDX_ALL_ROOMS);
-        } else if (currentState instanceof StateRoom) {
+        if (currentState instanceof StateRoom) {
             setMenuIndex(MENU_IDX_NAVIGATE);
         } else if (currentState instanceof StateInfos) {
             setMenuIndex(MENU_IDX_INFOS);

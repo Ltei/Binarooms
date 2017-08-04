@@ -9,13 +9,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
+import lteii.binarooms.Database;
 import lteii.binarooms.R;
 import lteii.binarooms.model.OLDRoom;
 import lteii.binarooms.utils.MathUtils;
 
+import static lteii.binarooms.ActMain.DATABASE;
 import static lteii.binarooms.ActMain.STATES_MANAGER;
+import static lteii.binarooms.ActMain.USER;
 
 
 public class StateRoom extends State {
@@ -47,7 +51,6 @@ public class StateRoom extends State {
 
         // Setup media
         if (room.hasMedia()) {
-            System.out.println("HELLO HELLO HELLO");
             ((FrameLayout)rootView.findViewById(R.id.media_holder)).addView(room.getMedia().getView(context));
         }
 
@@ -62,14 +65,34 @@ public class StateRoom extends State {
             buttonTextColor = getResources().getColor(R.color.colorButtonLightText);
         }
 
-        // Setup separators
-        rootView.findViewById(R.id.separator0).setBackgroundColor(buttonTextColor);
-        rootView.findViewById(R.id.separator1).setBackgroundColor(buttonTextColor);
+        // Setup source button
+        final ImageButton sourceButton = rootView.findViewById(R.id.source_button);
+        sourceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                STATES_MANAGER.setState(new StateRoom().setup(DATABASE.sourceRoom));
+            }
+        });
 
-        // Setup comments button
-        final Button commentsButton = rootView.findViewById(R.id.comments_button);
-        commentsButton.setBackgroundColor(buttonColor);
-        commentsButton.setTextColor(buttonTextColor);
+        // Setup save button
+        final ImageButton saveButton = rootView.findViewById(R.id.save_button);
+        if (USER.isSavedRoom(room)) {
+            saveButton.setBackground(getResources().getDrawable(R.drawable.ic_favorite_white_36dp));
+        } else {
+            saveButton.setBackground(getResources().getDrawable(R.drawable.ic_favorite_border_white_36dp));
+        }
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (USER.isSavedRoom(room)) {
+                    USER.unsaveRoom(room);
+                    saveButton.setBackground(getResources().getDrawable(R.drawable.ic_favorite_border_white_36dp));
+                } else {
+                    USER.saveRoom(room);
+                    saveButton.setBackground(getResources().getDrawable(R.drawable.ic_favorite_white_36dp));
+                }
+            }
+        });
 
         // Setup path buttons
         final Button[] pathButtons = new Button[] {

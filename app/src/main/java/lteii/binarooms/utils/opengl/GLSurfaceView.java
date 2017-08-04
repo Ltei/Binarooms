@@ -30,6 +30,7 @@ public class GLSurfaceView extends android.opengl.GLSurfaceView implements andro
 
 
     private ShapeDrawer shapeDrawer = null;
+    private GLColor backgroundColor = null;
 
     int shaderProgram;
     int positionHandle;
@@ -45,8 +46,9 @@ public class GLSurfaceView extends android.opengl.GLSurfaceView implements andro
         super(context, attributeSet);
     }
 
-    public void setup(ShapeDrawer drawer) {
+    public void setup(ShapeDrawer drawer, GLColor backgroundColor) {
         this.shapeDrawer = drawer;
+        this.backgroundColor = backgroundColor;
         setEGLContextClientVersion(2);
         setRenderer(this);
         setRenderMode(android.opengl.GLSurfaceView.RENDERMODE_WHEN_DIRTY);
@@ -90,6 +92,7 @@ public class GLSurfaceView extends android.opengl.GLSurfaceView implements andro
         final long t0 = System.currentTimeMillis();
 
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
+        GLES20.glClearColor(backgroundColor.red(), backgroundColor.green(), backgroundColor.blue(), backgroundColor.alpha());
         GLES20.glUseProgram(shaderProgram);
         GLES20.glEnableVertexAttribArray(positionHandle);
         GLES20.glUniformMatrix4fv(mvpMatrixHandle, 1, false, camera.mvpMatrix, 0);

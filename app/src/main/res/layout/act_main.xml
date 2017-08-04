@@ -24,6 +24,15 @@
             android:layout_height="wrap_content"
             android:text="Binarooms"
             android:textSize="@dimen/title_size" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="18dp"
+            android:layout_marginRight="18dp"
+            android:background="@android:drawable/ic_dialog_map"
+            android:id="@+id/toolbar_map_button"/>
     </android.support.v7.widget.Toolbar>
 
     <!-- DrawerLayout -->

@@ -19,8 +19,10 @@ import lteii.binarooms.utils.opengl.GLShapeSquare;
 import lteii.binarooms.utils.opengl.GLSurfaceView;
 import lteii.binarooms.utils.opengl.GLSurfaceViewNavigable;
 
+import static lteii.binarooms.ActMain.DATABASE;
 
-public class StateRoomsMap extends State {
+
+public class SubStateRoomsMap extends SubState {
 
     private static class Node {
         private final float x, y;
@@ -49,7 +51,7 @@ public class StateRoomsMap extends State {
         final GLSurfaceViewNavigable glSurfaceView = rootView.findViewById(R.id.all_rooms_treeview);
 
         nodes = new ArrayList<>();
-        extractNodes(Database.SOURCE_ROOM, null, 0, 0, 0.25f, 0.2f, 0.3f, 0.5f);
+        extractNodes(DATABASE.sourceRoom, null, 0, 0, 0.25f, 0.2f, 0.3f, 0.5f);
 
         final GLColor itemsBackgroundColor = GLColor.rgba(0.5f, 0.5f, 0.5f, 1f);
 
@@ -68,7 +70,8 @@ public class StateRoomsMap extends State {
                 for (GLShape shape : shapes)
                     shape.draw();
             }
-        });
+        },
+        GLColor.fromColor(getResources().getColor(R.color.colorPrimary)));
 
         return rootView;
     }
@@ -76,8 +79,8 @@ public class StateRoomsMap extends State {
     private void extractNodes(OLDRoom room, @Nullable Node parent, float x, float y, float bigRayon, float smallRayon, float xSpace, float ySpace) {
         final Node dot = new Node(x, y, bigRayon, smallRayon, room.getBackgroundColor(), parent);
         nodes.add(dot);
-        if (room.getChild(0) != null) extractNodes(room.getChild(0), dot, x+xSpace, y+ySpace, bigRayon/2f, smallRayon/2f, xSpace/2f, ySpace/2f);
-        if (room.getChild(1) != null) extractNodes(room.getChild(1), dot, x-xSpace, y+ySpace, bigRayon/2f, smallRayon/2f, xSpace/2f, ySpace/2f);
+        if (room.getChild(0) != null) extractNodes(room.getChild(0), dot, x-xSpace, y+ySpace, bigRayon/2f, smallRayon/2f, xSpace/2f, ySpace/2f);
+        if (room.getChild(1) != null) extractNodes(room.getChild(1), dot, x+xSpace, y+ySpace, bigRayon/2f, smallRayon/2f, xSpace/2f, ySpace/2f);
     }
 
 }

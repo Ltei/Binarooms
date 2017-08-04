@@ -28,5 +28,11 @@ public class GLColor {
     }
 
 
+    public float red() { return rgba[0]; }
+    public float green() { return rgba[1]; }
+    public float blue() { return rgba[2]; }
+    public float alpha() { return rgba[3]; }
+
+
 
 }

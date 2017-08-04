@@ -31,7 +31,7 @@ class GLCamera {
 
 
     void move(float x, float y) {
-        final float moveScale = 1f/(surfaceHeight* zoomFactor);
+        final float moveScale = 2f/(surfaceHeight*zoomFactor);
         centerX += x*moveScale;
         centerY += y*moveScale;
         update();
@@ -43,8 +43,8 @@ class GLCamera {
 
 
     private void update() {
-        final float semiWidth = surfaceWHRatio/ zoomFactor;
-        final float semiHeight = 1f/ zoomFactor;
+        final float semiWidth = surfaceWHRatio/zoomFactor;
+        final float semiHeight = 1f/zoomFactor;
         Matrix.frustumM(projectionMatrix, 0,
                 centerX+semiWidth, centerX-semiWidth,
                 centerY-semiHeight, centerY+semiHeight,

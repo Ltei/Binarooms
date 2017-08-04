@@ -46,17 +46,21 @@ public class StatesManager {
         if (states.size() == 1) {
             return false;
         } else {
-            states.pop();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, states.firstElement())
-                    .commit();
-            menuDrawerLayout.setupMenuIndex(states.firstElement());
+            popState();
             return true;
         }
     }
 
+    public void popState() {
+        if (states.size() == 1) throw new IllegalStateException();
+        states.pop();
+        fragmentManager.beginTransaction()
+                .replace(R.id.content_frame, getCurrentState())
+                .commit();
+        menuDrawerLayout.setupMenuIndex(getCurrentState());
+    }
     public State getCurrentState() {
-        return states.firstElement();
+        return states.lastElement();
     }
 
 

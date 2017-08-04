@@ -23,9 +23,13 @@
     <color name="colorButtonDark">@color/colorPrimary</color>
     <color name="colorButtonDarkText">@color/colorAccentLight</color>
 
-    <color name="colorButtonLight">@color/colorAccent</color>
+    <color name="colorButtonLight">@color/colorAccentLight</color>
     <color name="colorButtonLightText">@color/colorPrimaryDark</color>
 
+    <!--
+    <color name="colorButtonLight">@color/colorAccent</color>
+    <color name="colorButtonLightText">@color/colorPrimaryDark</color>
+    -->
 
 
 </resources>

@@ -21,9 +21,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="lteii.binarooms.utils.fileExplorer.ActFileExplorer">
-        </activity>
-
     </application>
 
 </manifest>
