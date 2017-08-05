@@ -77,19 +77,19 @@ public class StateRoom extends State {
         // Setup save button
         final ImageButton saveButton = rootView.findViewById(R.id.save_button);
         if (USER.isSavedRoom(room)) {
-            saveButton.setBackground(getResources().getDrawable(R.drawable.ic_favorite_white_36dp));
+            saveButton.setBackground(getResources().getDrawable(R.drawable.ic_favorite_white_24dp));
         } else {
-            saveButton.setBackground(getResources().getDrawable(R.drawable.ic_favorite_border_white_36dp));
+            saveButton.setBackground(getResources().getDrawable(R.drawable.ic_favorite_border_white_24dp));
         }
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (USER.isSavedRoom(room)) {
                     USER.unsaveRoom(room);
-                    saveButton.setBackground(getResources().getDrawable(R.drawable.ic_favorite_border_white_36dp));
+                    saveButton.setBackground(getResources().getDrawable(R.drawable.ic_favorite_border_white_24dp));
                 } else {
                     USER.saveRoom(room);
-                    saveButton.setBackground(getResources().getDrawable(R.drawable.ic_favorite_white_36dp));
+                    saveButton.setBackground(getResources().getDrawable(R.drawable.ic_favorite_white_24dp));
                 }
             }
         });
