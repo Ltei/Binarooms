@@ -7,15 +7,19 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import lteii.binarooms.Database;
 import lteii.binarooms.R;
 import lteii.binarooms.model.OLDRoom;
+import lteii.binarooms.standard.StdOnClickListener;
 import lteii.binarooms.utils.MathUtils;
+import lteii.binarooms.utils.Utils;
 
 import static lteii.binarooms.ActMain.DATABASE;
 import static lteii.binarooms.ActMain.STATES_MANAGER;
@@ -67,10 +71,28 @@ public class StateRoom extends State {
 
         // Setup source button
         final ImageButton sourceButton = rootView.findViewById(R.id.source_button);
-        sourceButton.setOnClickListener(new View.OnClickListener() {
+        sourceButton.setOnClickListener(new StdOnClickListener(context) {
             @Override
-            public void onClick(View view) {
+            public void onClick() {
                 STATES_MANAGER.setState(new StateRoom().setup(DATABASE.sourceRoom));
+            }
+        });
+
+        // Setup edit button
+        final ImageButton editButton = rootView.findViewById(R.id.edit_button);
+        editButton.setOnClickListener(new StdOnClickListener(context) {
+            @Override
+            public void onClick() {
+
+            }
+        });
+
+        // Setup comment button
+        final ImageButton commentButton = rootView.findViewById(R.id.comment_button);
+        commentButton.setOnClickListener(new StdOnClickListener(context) {
+            @Override
+            public void onClick() {
+
             }
         });
 
@@ -81,15 +103,17 @@ public class StateRoom extends State {
         } else {
             saveButton.setBackground(getResources().getDrawable(R.drawable.ic_favorite_border_white_24dp));
         }
-        saveButton.setOnClickListener(new View.OnClickListener() {
+        saveButton.setOnClickListener(new StdOnClickListener(context) {
             @Override
-            public void onClick(View view) {
+            public void onClick() {
                 if (USER.isSavedRoom(room)) {
                     USER.unsaveRoom(room);
                     saveButton.setBackground(getResources().getDrawable(R.drawable.ic_favorite_border_white_24dp));
+                    Toast.makeText(context, "Removed from your favorites", Toast.LENGTH_SHORT).show();
                 } else {
                     USER.saveRoom(room);
                     saveButton.setBackground(getResources().getDrawable(R.drawable.ic_favorite_white_24dp));
+                    Toast.makeText(context, "Added to your favorites", Toast.LENGTH_SHORT).show();
                 }
             }
         });

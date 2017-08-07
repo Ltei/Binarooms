@@ -26,8 +26,8 @@ public class GLSurfaceViewNavigable extends GLSurfaceView {
 
 
     @Override
-    public void setup(ShapeDrawer drawer, GLColor backgroundColor) {
-        super.setup(drawer, backgroundColor);
+    public void setup(GLColor backgroundColor, ShapeDrawer drawer) {
+        super.setup(backgroundColor, drawer);
         this.scaleDetector = new ScaleGestureDetector(getContext(), new ScaleGestureDetector.SimpleOnScaleGestureListener() {
             @Override
             public boolean onScale(ScaleGestureDetector detector) {

@@ -64,14 +64,14 @@ public class SubStateRoomsMap extends SubState {
         for (Node node : nodes)
             shapes.add(new GLShapeCircle(glSurfaceView, node.x, node.y, node.smallRayon, GLColor.fromColor(node.color)));
 
-        glSurfaceView.setup(new GLSurfaceView.ShapeDrawer() {
+        glSurfaceView.setup(GLColor.fromColor(getResources().getColor(R.color.colorPrimary)),
+                new GLSurfaceView.ShapeDrawer() {
             @Override
             public void drawShapes() {
                 for (GLShape shape : shapes)
                     shape.draw();
             }
-        },
-        GLColor.fromColor(getResources().getColor(R.color.colorPrimary)));
+        });
 
         return rootView;
     }

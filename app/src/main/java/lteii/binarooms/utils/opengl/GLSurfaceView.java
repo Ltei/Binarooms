@@ -1,6 +1,7 @@
 package lteii.binarooms.utils.opengl;
 
 import android.content.Context;
+import android.graphics.PixelFormat;
 import android.opengl.GLES20;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -46,7 +47,7 @@ public class GLSurfaceView extends android.opengl.GLSurfaceView implements andro
         super(context, attributeSet);
     }
 
-    public void setup(ShapeDrawer drawer, GLColor backgroundColor) {
+    public void setup(GLColor backgroundColor, ShapeDrawer drawer) {
         this.shapeDrawer = drawer;
         this.backgroundColor = backgroundColor;
         setEGLContextClientVersion(2);
@@ -57,8 +58,6 @@ public class GLSurfaceView extends android.opengl.GLSurfaceView implements andro
     // GLSurfaceView.Renderer
     @Override
     public final void onSurfaceCreated(GL10 unused, EGLConfig config) {
-        GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-
         // Setup shader program
         final String defaultVertexShaderCode =
                 "uniform mat4 uMVPMatrix;" +
@@ -86,6 +85,9 @@ public class GLSurfaceView extends android.opengl.GLSurfaceView implements andro
         colorHandle = GLES20.glGetUniformLocation(shaderProgram, "vColor");
         mvpMatrixHandle = GLES20.glGetUniformLocation(shaderProgram, "uMVPMatrix");
         checkGlError("glGetUniformLocation");
+
+        // Setup OpenGL
+        GLES20.glClearColor(0,0,0,0);
     }
     @Override
     public final void onDrawFrame(GL10 unused) {

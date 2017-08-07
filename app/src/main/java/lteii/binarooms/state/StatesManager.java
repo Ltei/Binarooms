@@ -1,6 +1,7 @@
 package lteii.binarooms.state;
 
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 
 import java.util.Stack;
 
@@ -33,6 +34,7 @@ public class StatesManager {
         }
 
         fragmentManager.beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
                 .replace(R.id.content_frame, state)
                 .commit();
         states.push(state);
