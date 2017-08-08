@@ -60,5 +60,8 @@ public class OLDRoom {
         return childs[index];
     }
 
+    @Override
+    public String toString() { return title; }
+
 
 }

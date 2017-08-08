@@ -5,9 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 
 import lteii.binarooms.standard.StdOnClickListener;
@@ -59,7 +56,7 @@ public class ActMain extends AppCompatActivity {
         final Context context = getApplicationContext();
 
         DATABASE = new Database(context);
-        USER = new User();
+        USER = new User(DATABASE);
 
         final MenuDrawerLayout menuDrawerLayout = (MenuDrawerLayout)findViewById(R.id.MenuDrawerLayout);
         menuDrawerLayout.setup(this);

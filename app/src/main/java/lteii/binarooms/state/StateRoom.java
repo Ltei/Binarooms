@@ -30,7 +30,6 @@ public class StateRoom extends State {
 
     private OLDRoom room = null;
 
-    public StateRoom() {}
     public StateRoom setup(OLDRoom room) {
         if (room == null) throw new IllegalArgumentException();
         this.room = room;
@@ -43,7 +42,6 @@ public class StateRoom extends State {
         if (room == null) throw new IllegalStateException();
 
         final View rootView = inflater.inflate(R.layout.state_room, container, false);
-
         final Context context = inflater.getContext();
 
         // Setup background
@@ -96,7 +94,7 @@ public class StateRoom extends State {
             }
         });
 
-        // Setup save button
+        // Setup saveUser button
         final ImageButton saveButton = rootView.findViewById(R.id.save_button);
         if (USER.isSavedRoom(room)) {
             saveButton.setBackground(getResources().getDrawable(R.drawable.ic_favorite_white_24dp));
@@ -125,11 +123,10 @@ public class StateRoom extends State {
         };
 
         for (int i=0; i<pathButtons.length; i++) {
-            final Button button = pathButtons[i];
 
+            final Button button = pathButtons[i];
             button.setBackgroundColor(buttonColor);
             button.setTextColor(buttonTextColor);
-
             if (room.getChild(i) != null) {
                 final OLDRoom child = room.getChild(i);
                 button.setOnClickListener(new View.OnClickListener() {
@@ -143,22 +140,7 @@ public class StateRoom extends State {
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        final AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.DialogTheme);
-                        builder.setTitle("There is no room here yet.\nCreate one?");
-                        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                STATES_MANAGER.setState(new SubStateRoomEditor().setup(room, indexInParent));
-                                dialog.cancel();
-                            }
-                        });
-                        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        });
-                        builder.show();
+                        showCreateRoomDialog(context, indexInParent);
                     }
                 });
             }
@@ -166,6 +148,26 @@ public class StateRoom extends State {
         }
 
         return rootView;
+    }
+
+
+    public void showCreateRoomDialog(Context context, final int indexInParent) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.DialogTheme);
+        builder.setTitle("There is no room here yet.\nCreate one?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                STATES_MANAGER.setState(new SubStateRoomEditor().setup(room, indexInParent));
+                dialog.cancel();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
     }
 
 

@@ -15,7 +15,7 @@ public class User {
         public OLDRoom room;
         public @Nullable String password;
 
-        public SavedRoom(OLDRoom room, @Nullable String password) {
+        private SavedRoom(OLDRoom room, @Nullable String password) {
             this.room = room;
             this.password = password;
         }
@@ -25,14 +25,19 @@ public class User {
 
     public ArrayList<SavedRoom> savedRooms;
 
-    public User() {
+    public User(Database database) {
         savedRooms = new ArrayList<>();
+        saveRoom(database.sourceRoom, "hellozezghkjhksjhoqhgqlhgqfhgjkfhjqskldhfqhfdqfqsdfqqg");
     }
 
 
     public void saveRoom(OLDRoom room) {
         if (isSavedRoom(room)) throw new IllegalStateException();
         savedRooms.add(new SavedRoom(room, null));
+    }
+    public void saveRoom(OLDRoom room, String password) {
+        if (isSavedRoom(room)) throw new IllegalStateException();
+        savedRooms.add(new SavedRoom(room, password));
     }
     public void unsaveRoom(OLDRoom room) {
         if (!isSavedRoom(room)) throw new IllegalStateException();
@@ -51,9 +56,12 @@ public class User {
         return false;
     }
 
-    public void save() {
+
+    public void saveUser() {
 
     }
+
+
 
 
 

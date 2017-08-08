@@ -5,6 +5,7 @@
     <string name="title_main">@string/app_name</string>
     <string name="title_hello_world">Hello world</string>
     <string name="title_edit_room">Room editor</string>
+    <string name="title_saved_rooms">Saved rooms</string>
 
     <string name="str_default">default</string>
     <string name="str_bigdefault">

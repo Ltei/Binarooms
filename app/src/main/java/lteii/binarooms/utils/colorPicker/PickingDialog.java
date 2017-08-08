@@ -31,7 +31,7 @@ class PickingDialog extends Dialog {
     PickingDialog(final ColorPicker colorPicker) {
         super(colorPicker.context);
 
-        setContentView(R.layout.dialog_color_picking);
+        setContentView(R.layout.layout_color_picking_dialog);
         setTitle(colorPicker.title);
 
         colorView = findViewById(R.id.picked_color_view);

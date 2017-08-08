@@ -62,7 +62,7 @@ public class SubStateRoomEditor extends SubState {
         if (indexInParent == null) throw new IllegalStateException();
 
         context = inflater.getContext();
-        final View rootView = inflater.inflate(R.layout.state_room_editor, container, false);
+        final View rootView = inflater.inflate(R.layout.sstate_room_editor, container, false);
 
         final ColorPicker bakcgroundColorPicker = rootView.findViewById(R.id.background_colorpicker);
         final TextView titleTextView = rootView.findViewById(R.id.title_textview);

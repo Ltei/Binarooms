@@ -89,7 +89,7 @@ public class ActFileExplorer extends AppCompatActivity {
             fileContentDir.add(0, new FileExplorerItem("..", "Parent Directory", "", currentDir.getParent(), "directory_up"));
         }
 
-        adapter = new FileArrayAdapter(this, R.layout.view_file, fileContentDir);
+        adapter = new FileArrayAdapter(this, R.layout.layout_file_view, fileContentDir);
         parentList.setAdapter(adapter);
     }
 

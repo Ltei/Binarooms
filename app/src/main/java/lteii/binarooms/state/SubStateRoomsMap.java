@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import lteii.binarooms.Database;
 import lteii.binarooms.R;
 import lteii.binarooms.model.OLDRoom;
 import lteii.binarooms.utils.opengl.GLColor;
@@ -46,7 +45,7 @@ public class SubStateRoomsMap extends SubState {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.state_rooms_map, container, false);
+        final View rootView = inflater.inflate(R.layout.sstate_rooms_map, container, false);
 
         final GLSurfaceViewNavigable glSurfaceView = rootView.findViewById(R.id.all_rooms_treeview);
 

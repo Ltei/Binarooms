@@ -12,6 +12,7 @@ import android.widget.ListView;
 import lteii.binarooms.state.State;
 import lteii.binarooms.state.StateInfos;
 import lteii.binarooms.state.StateRoom;
+import lteii.binarooms.state.StateSavedRooms;
 import lteii.binarooms.state.SubState;
 
 import static lteii.binarooms.ActMain.DATABASE;
@@ -19,16 +20,14 @@ import static lteii.binarooms.ActMain.STATES_MANAGER;
 
 public class MenuDrawerLayout extends DrawerLayout {
 
-    private static final String[] menuStrings = new String[] {"Navigate", "Your rooms", "Saved rooms", "Tendencies", "Infos"};
+    private static final String[] menuStrings = new String[] {"Navigate", "Saved rooms", "Infos"};
 
-    public static final int MIN_MENU_IDX = -1, MAX_MENU_IDX = 4;
+    public static final int MIN_MENU_IDX = -1, MAX_MENU_IDX = 2;
     public static final int MENU_IDX_NONE = -1;
 
     public static final int MENU_IDX_NAVIGATE = 0;
-    public static final int MENU_IDX_YOUR_ROOMS = 1;
-    public static final int MENU_IDX_SAVED_ROOMS = 2;
-    public static final int MENU_IDX_TENDENCIES = 3;
-    public static final int MENU_IDX_INFOS = 4;
+    public static final int MENU_IDX_SAVED_ROOMS = 1;
+    public static final int MENU_IDX_INFOS = 2;
 
 
     private int menuIndex = MENU_IDX_NONE;
@@ -53,12 +52,8 @@ public class MenuDrawerLayout extends DrawerLayout {
                 if (position != menuIndex) {
                     if (position == MENU_IDX_NAVIGATE) {
                         STATES_MANAGER.setState(new StateRoom().setup(DATABASE.sourceRoom));
-                    } else if (position == MENU_IDX_YOUR_ROOMS) {
-
                     } else if (position == MENU_IDX_SAVED_ROOMS) {
-
-                    } else if (position == MENU_IDX_TENDENCIES) {
-
+                        STATES_MANAGER.setState(new StateSavedRooms());
                     } else if (position == MENU_IDX_INFOS) {
                         STATES_MANAGER.setState(new StateInfos());
                     } else {
@@ -74,11 +69,11 @@ public class MenuDrawerLayout extends DrawerLayout {
     public void setupMenuIndex(State currentState) {
         if (currentState instanceof StateRoom) {
             setMenuIndex(MENU_IDX_NAVIGATE);
+        } else if (currentState instanceof StateSavedRooms) {
+            setMenuIndex(MENU_IDX_SAVED_ROOMS);
         } else if (currentState instanceof StateInfos) {
             setMenuIndex(MENU_IDX_INFOS);
-        } else if (currentState instanceof SubState) {
-            return;
-        } else {
+        } else if (!(currentState instanceof SubState)) {
             setMenuIndex(MENU_IDX_NONE);
         }
     }
