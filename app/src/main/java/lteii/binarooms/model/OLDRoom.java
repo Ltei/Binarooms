@@ -37,6 +37,9 @@ public class OLDRoom {
         if (childs[index] != null) throw new IllegalStateException();
         childs[index] = child;
     }
+    public void addComment(String text) {
+        comments.add(new RoomComment(text));
+    }
 
     public String getTitle() {
         return title;

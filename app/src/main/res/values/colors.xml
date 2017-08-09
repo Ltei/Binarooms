@@ -20,11 +20,8 @@
     <color name="colorTextLight">@color/colorAccentLight</color>
     <color name="colorTextDark">@color/colorPrimaryDark</color>
 
-    <color name="colorButtonDark">@color/colorPrimary</color>
-    <color name="colorButtonDarkText">@color/colorAccentLight</color>
-
+    <color name="colorButtonDark">@color/colorPrimaryDark</color>
     <color name="colorButtonLight">@color/colorAccentLight</color>
-    <color name="colorButtonLightText">@color/colorPrimaryDark</color>
 
     <!--
     <color name="colorButtonLight">@color/colorAccent</color>

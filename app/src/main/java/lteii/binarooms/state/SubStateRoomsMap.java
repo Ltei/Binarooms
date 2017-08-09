@@ -52,7 +52,7 @@ public class SubStateRoomsMap extends SubState {
         nodes = new ArrayList<>();
         extractNodes(DATABASE.sourceRoom, null, 0, 0, 0.25f, 0.2f, 0.3f, 0.5f);
 
-        final GLColor itemsBackgroundColor = GLColor.rgba(0.5f, 0.5f, 0.5f, 1f);
+        final GLColor itemsBackgroundColor = GLColor.fromColor(getResources().getColor(R.color.colorAccent));
 
         shapes = new ArrayList<>();
         for (Node node : nodes)

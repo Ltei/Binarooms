@@ -11,10 +11,6 @@ import lteii.binarooms.R;
 public class StateInfos extends State {
 
 
-
-    public StateInfos() {}
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.state_hello_world, container, false);

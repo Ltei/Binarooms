@@ -42,8 +42,8 @@ public class Date {
                 +"/"+Utils.formatUInteger(month, 2)
                 +"/"+Utils.formatUInteger(year, 4)
                 +" "+Utils.formatUInteger(hour, 2)
-                +"/"+Utils.formatUInteger(minute, 2)
-                +"/"+Utils.formatUInteger(second, 2);
+                +":"+Utils.formatUInteger(minute, 2)
+                +":"+Utils.formatUInteger(second, 2);
     }
 
 }

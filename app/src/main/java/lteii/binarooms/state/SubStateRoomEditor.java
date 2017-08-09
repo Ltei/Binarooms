@@ -48,7 +48,6 @@ public class SubStateRoomEditor extends SubState {
     private @Nullable View roomMediaView = null;
     private @Nullable RoomMedia roomMedia = null;
 
-    public SubStateRoomEditor() {}
     public SubStateRoomEditor setup(OLDRoom parent, int indexInParent) {
         this.parent = parent;
         this.indexInParent = indexInParent;

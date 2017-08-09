@@ -20,6 +20,14 @@ public class Database {
         media0 = new RoomMediaImage(BitmapFactory.decodeResource(context.getResources(), R.drawable.test_circle2));
         media1 = new RoomMediaImage(BitmapFactory.decodeResource(context.getResources(), R.drawable.test_circle));
         sourceRoom = new OLDRoom("Hello", "This is the source room", media0, context.getResources().getColor(R.color.colorBackground));
+        sourceRoom.addComment("commentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcomment");
+        sourceRoom.addComment("aaaaaaaaaaaaaaaaaaaaaaaaaa");
+        sourceRoom.addComment("bbsbsvsdsdfsdfsdbnzbgbensgn e gqbqbg g g  gbz gzg qe tgrdtzbg G QB grs");
+        sourceRoom.addComment("commentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcomment");
+        sourceRoom.addComment("commentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcomment");
+        sourceRoom.addComment("commentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcomment");
+        sourceRoom.addComment("commentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcomment");
+        sourceRoom.addComment("commentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcomment");
         addFloors(5, sourceRoom);
     }
 
