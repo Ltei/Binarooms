@@ -20,6 +20,8 @@ public class Room {
     }
 
 
+    public void addComment(String comment) { throw new IllegalStateException(); }
+
     public String getTitle() {
         throw new IllegalStateException();
     }
@@ -32,14 +34,6 @@ public class Room {
     public int getBackgroundColor() {
         throw new IllegalStateException();
     }
-
-    public Date getCreationDate() {
-        throw new IllegalStateException();
-    }
-    public Date getLastEditDate() {
-        throw new IllegalStateException();
-    }
-
     public int getNbComments() {
         throw new IllegalStateException();
     }
@@ -47,7 +41,6 @@ public class Room {
         if (index < 0 || index >= getNbComments()) throw new IllegalArgumentException();
         throw new IllegalStateException();
     }
-
     public Room getChild(int index) {
         if (index < 0 || index >= NB_CHILDS) throw new IllegalArgumentException();
         throw new IllegalStateException();

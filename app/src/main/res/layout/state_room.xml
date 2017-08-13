@@ -12,11 +12,11 @@
         android:orientation="vertical"
         android:descendantFocusability="beforeDescendants"
         android:focusableInTouchMode="true"
-        android:id="@+id/parent_linear_layout"
         android:paddingBottom="@dimen/main_vertical_margin"
         android:paddingTop="@dimen/main_vertical_margin"
         android:paddingLeft="@dimen/main_horizontal_margin"
-        android:paddingRight="@dimen/main_horizontal_margin">
+        android:paddingRight="@dimen/main_horizontal_margin"
+        android:id="@+id/parent_linearlayout">
 
         <!-- Local toolbar -->
         <LinearLayout
@@ -70,6 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginBottom="16dp"
                 android:text="@string/str_default"
                 android:textSize="@dimen/description_size"
                 android:textStyle="bold"
@@ -82,12 +83,14 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:id="@+id/media_holder"/>
+            android:layout_marginBottom="16dp"
+            android:id="@+id/media_framelayout"/>
 
         <!-- Path buttons -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:orientation="horizontal"
             android:id="@+id/buttons_linearlayout">
             <Button
@@ -107,6 +110,13 @@
                 android:text="Go right"
                 android:id="@+id/right_path_button"/>
         </LinearLayout>
+
+        <!-- Comments -->
+        <lteii.binarooms.utils.ListLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/comments_linearlayout"/>
 
     </LinearLayout>
 </ScrollView>

@@ -14,27 +14,18 @@
         android:paddingLeft="@dimen/main_horizontal_margin"
         android:paddingRight="@dimen/main_horizontal_margin">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/main_vertical_margin"
-            android:gravity="center"
-            android:textSize="@dimen/title_size"
-            android:textStyle="bold"
-            android:text="Comments"/>
-
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/main_vertical_margin"
             android:background="@android:drawable/edit_text"
-            android:hint="Write a comment!"/>
+            android:hint="Write a comment!"
+            android:id="@+id/comment_edittext"/>
 
-        <LinearLayout
+        <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:id="@+id/parent_linearlayout"/>
+            android:text="Post"
+            android:id="@+id/post_button"/>
 
     </LinearLayout>
 </ScrollView>

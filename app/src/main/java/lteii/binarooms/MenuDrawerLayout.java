@@ -49,6 +49,7 @@ public class MenuDrawerLayout extends DrawerLayout {
         menuListView.setOnItemClickListener(new ListView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                boolean close = false;
                 if (position != menuIndex) {
                     if (position == MENU_IDX_NAVIGATE) {
                         STATES_MANAGER.setState(new StateRoom().setup(DATABASE.sourceRoom));
@@ -60,8 +61,13 @@ public class MenuDrawerLayout extends DrawerLayout {
                         throw new IllegalStateException();
                     }
                     setMenuIndex(position);
-                    closeDrawer(menuListView);
+                    close = true;
                 }
+                if (STATES_MANAGER.getCurrentState() instanceof SubState) {
+                    STATES_MANAGER.popState();
+                    close = true;
+                }
+                if (close) closeDrawer(menuListView);
             }
         });
     }

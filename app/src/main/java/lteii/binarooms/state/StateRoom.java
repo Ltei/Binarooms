@@ -10,21 +10,22 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import lteii.binarooms.R;
 import lteii.binarooms.model.OLDRoom;
 import lteii.binarooms.model.RoomComment;
 import lteii.binarooms.standard.StdOnClickListener;
+import lteii.binarooms.utils.ListLinearLayout;
 import lteii.binarooms.utils.MathUtils;
-import lteii.binarooms.utils.Utils;
 
 import static lteii.binarooms.ActMain.DATABASE;
 import static lteii.binarooms.ActMain.STATES_MANAGER;
@@ -34,51 +35,41 @@ import static lteii.binarooms.ActMain.USER;
 public class StateRoom extends State {
 
 
-    private class CommentsDialog extends Dialog {
-        private CommentsDialog(Context context) {
+    private class CommentDialog extends Dialog {
+        private CommentDialog(final Context context) {
             super(context);
             setContentView(R.layout.layout_dialog_room_comment);
-            final LinearLayout parentLinearLayout = findViewById(R.id.parent_linearlayout);
-            final int nbComments = room.getNbComments();
-            final LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            final LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params2.setMargins(0, 0, 0, (int)MathUtils.dpToPixels(16, context));
-            final int commentBackgroundColor = getResources().getColor(R.color.colorButtonLight);
-            final int commentTextColor = getResources().getColor(R.color.colorTextDark);
-            final int commentDateColor = getResources().getColor(R.color.colorAccent);
-            for (int i=0; i<nbComments; i++) {
-                final RoomComment comment = room.getComment(i);
-
-                final LinearLayout parentLayout = new LinearLayout(context);
-                parentLayout.setLayoutParams(params2);
-                parentLayout.setBackgroundColor(commentBackgroundColor);
-                parentLayout.setOrientation(LinearLayout.VERTICAL);
-
-                final TextView dateTextView = new TextView(context);
-                dateTextView.setText(comment.postDate.toString());
-                dateTextView.setTextColor(commentDateColor);
-
-                final TextView commentTextView = new TextView(context);
-                commentTextView.setLayoutParams(params1);
-                commentTextView.setGravity(Gravity.START|Gravity.CENTER);
-                commentTextView.setText(comment.comment);
-                commentTextView.setTextColor(commentTextColor);
-
-                parentLayout.addView(dateTextView);
-                parentLayout.addView(commentTextView);
-                parentLinearLayout.addView(parentLayout);
-            }
+            final EditText commentEditText = findViewById(R.id.comment_edittext);
+            final Button postButton = findViewById(R.id.post_button);
+            postButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final String commentStr = commentEditText.getText().toString();
+                    if (!commentStr.equals("")) {
+                        room.addComment(commentStr);
+                        final int nbComments = room.getNbComments();
+                        comments.clear();
+                        for (int i=(nbComments-1); i>=0; i--) {
+                            comments.add(room.getComment(i));
+                        }
+                        commentsList.notifyArrayChange();
+                        Toast.makeText(context, "Comment posted", Toast.LENGTH_SHORT).show();
+                        dismiss();
+                    }
+                }
+            });
         }
     }
 
     private OLDRoom room = null;
+    private ListLinearLayout commentsList = null;
+    private ArrayList<RoomComment> comments = null;
 
     public StateRoom setup(OLDRoom room) {
         if (room == null) throw new IllegalArgumentException();
         this.room = room;
         return this;
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -87,11 +78,11 @@ public class StateRoom extends State {
         final View rootView = inflater.inflate(R.layout.state_room, container, false);
         final Context context = inflater.getContext();
 
-        rootView.findViewById(R.id.parent_linear_layout).setBackgroundColor(room.getBackgroundColor());
+        rootView.findViewById(R.id.parent_linearlayout).setBackgroundColor(room.getBackgroundColor());
         final boolean isBackgroundLight = MathUtils.isBrightColor(room.getBackgroundColor());
 
         setupTexts(isBackgroundLight, (TextView)rootView.findViewById(R.id.title_textview), (TextView)rootView.findViewById(R.id.description_textview));
-        setupMedia((FrameLayout)rootView.findViewById(R.id.media_holder), context);
+        setupMedia((FrameLayout)rootView.findViewById(R.id.media_framelayout), context);
 
         setupSourceButton(isBackgroundLight, (ImageButton)rootView.findViewById(R.id.source_button), context);
         setupEditButton(isBackgroundLight, (ImageButton)rootView.findViewById(R.id.edit_button), context);
@@ -100,6 +91,8 @@ public class StateRoom extends State {
 
         final Button[] pathButtons = new Button[] {rootView.findViewById(R.id.left_path_button), rootView.findViewById(R.id.right_path_button)};
         setupPathButtons(isBackgroundLight, pathButtons, context);
+
+        setupComments(isBackgroundLight, (ListLinearLayout)rootView.findViewById(R.id.comments_linearlayout), context);
 
         return rootView;
     }
@@ -117,7 +110,6 @@ public class StateRoom extends State {
             mediaHolder.addView(room.getMedia().getView(context));
         }
     }
-
     private void setupSourceButton(boolean isBackgroundLight, ImageButton sourceButton, Context context) {
         if (isBackgroundLight) sourceButton.setBackground(getResources().getDrawable(R.drawable.ic_home_black_36dp));
         sourceButton.setOnClickListener(new StdOnClickListener(context) {
@@ -141,7 +133,7 @@ public class StateRoom extends State {
         commentButton.setOnClickListener(new StdOnClickListener(context) {
             @Override
             public void onClick() {
-                new CommentsDialog(context).show();
+                new CommentDialog(context).show();
             }
         });
     }
@@ -176,7 +168,6 @@ public class StateRoom extends State {
             }
         });
     }
-
     private void setupPathButtons(boolean isBackgroundLight, Button[] pathButtons, final Context context) {
         final int buttonColor;
         final int buttonTextColor;
@@ -226,6 +217,63 @@ public class StateRoom extends State {
                 });
             }
         }
+    }
+    private void setupComments(boolean isBackgroundLight, ListLinearLayout commentsLinearLayout, final Context context) {
+        this.commentsList = commentsLinearLayout;
+
+        final int nbComments = room.getNbComments();
+        final int margin = (int)MathUtils.dpToPixels(16, context);
+        final int padding = (int)MathUtils.dpToPixels(8, context);
+        final LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        final LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params2.setMargins(0, 0, 0, margin);
+        final int commentBackgroundColor;
+        final int commentTextColor;
+        if (isBackgroundLight) {
+            commentBackgroundColor = getResources().getColor(R.color.colorButtonDark);
+            commentTextColor = getResources().getColor(R.color.colorTextLight);
+        } else {
+            commentBackgroundColor = getResources().getColor(R.color.colorButtonLight);
+            commentTextColor = getResources().getColor(R.color.colorTextDark);
+        }
+        final int commentDateColor = getResources().getColor(R.color.colorAccent);
+
+        commentsLinearLayout.setViewCreator(new ListLinearLayout.ViewCreator() {
+            @Override
+            public View createView(Object item, int itemPosition) {
+                final RoomComment comment = (RoomComment) item;
+
+                final LinearLayout parentLayout = new LinearLayout(context);
+                if (itemPosition < (nbComments-1)) {
+                    parentLayout.setLayoutParams(params2);
+                } else {
+                    parentLayout.setLayoutParams(params1);
+                }
+                parentLayout.setPadding(padding, padding, padding, padding);
+                parentLayout.setBackgroundColor(commentBackgroundColor);
+                parentLayout.setOrientation(LinearLayout.VERTICAL);
+
+                final TextView dateTextView = new TextView(context);
+                dateTextView.setText(comment.postDate.toString());
+                dateTextView.setTextColor(commentDateColor);
+
+                final TextView commentTextView = new TextView(context);
+                commentTextView.setLayoutParams(params1);
+                commentTextView.setGravity(Gravity.START|Gravity.CENTER);
+                commentTextView.setText(comment.comment);
+                commentTextView.setTextColor(commentTextColor);
+
+                parentLayout.addView(dateTextView);
+                parentLayout.addView(commentTextView);
+                return parentLayout;
+            }
+        });
+
+        comments = new ArrayList<>(nbComments);
+        for (int i=(nbComments-1); i>=0; i--) {
+            comments.add(room.getComment(i));
+        }
+        commentsLinearLayout.setArray(comments);
     }
 
 
